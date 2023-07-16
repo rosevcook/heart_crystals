@@ -1,8 +1,8 @@
 package com.rosemods.heart_crystals.core.other;
 
-import com.rosemods.heart_crystals.core.HCConfig;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import net.minecraft.client.Minecraft;
+import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -11,10 +11,13 @@ import net.minecraft.world.entity.Entity;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.CapabilityToken;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
+import net.minecraftforge.common.util.LazyOptional;
 import net.minecraftforge.network.NetworkEvent;
 import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.Supplier;
+
 
 public class HCPlayerInfo {
     public static final Capability<PlayerHealthInfo> HEALTH_INFO_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
@@ -24,7 +27,7 @@ public class HCPlayerInfo {
     }
 
     public static class PlayerHealthInfo {
-        public int HeartCount = HCConfig.COMMON.minimum.get();
+        public int HeartCount = 3;
         public boolean HealthSet = false;
 
         public void syncPlayerVariables(Entity entity) {
@@ -48,7 +51,7 @@ public class HCPlayerInfo {
     }
 
     public static class PlayerHealthInfoSync {
-        private PlayerHealthInfo info;
+        private final PlayerHealthInfo info;
 
         public PlayerHealthInfoSync(PlayerHealthInfo info) {
             this.info = info;
@@ -79,6 +82,27 @@ public class HCPlayerInfo {
             });
 
             context.setPacketHandled(true);
+        }
+
+    }
+
+    public static class PlayerVariablesProvider implements ICapabilitySerializable<Tag> {
+        private final PlayerHealthInfo info = new PlayerHealthInfo();
+        private final LazyOptional<PlayerHealthInfo> instance = LazyOptional.of(() -> this.info);
+
+        @Override
+        public<T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+            return cap == HCPlayerInfo.HEALTH_INFO_CAPABILITY ? this.instance.cast() : LazyOptional.empty();
+        }
+
+        @Override
+        public Tag serializeNBT() {
+            return this.info.writeNBT();
+        }
+
+        @Override
+        public void deserializeNBT(Tag nbt) {
+            this.info.readNBT(nbt);
         }
 
     }

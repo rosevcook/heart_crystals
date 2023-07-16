@@ -1,36 +1,29 @@
 modLoader = "javafml"
 loaderVersion = "[32,)"
-issueTrackerURL = "https://github.com/rosevcook/windswept/issues"
+issueTrackerURL = "https://github.com/rosevcook/heart_crystals/issues"
 license = "All Rights Reserved"
 
 [[mods]]
-    modId = "windswept"
-    version = "2.2.3"
-    displayName = "Windswept"
+    modId = "heart_crystals"
+    version = "1.0.0"
+    displayName = "Heart Crystals"
     logoFile = "logo.png"
-    itemIcon = "windswept:holly_berries"
-    configBackground = "windswept:textures/block/holly_log.png"
-    displayURL = "https://www.curseforge.com/minecraft/mc-mods/windsweptmod"
+    itemIcon = "heart_crystals:heart_crystal"
+    displayURL = "https://www.curseforge.com/minecraft/mc-mods/heart_crystals"
     authors = "Rose"
-    description = '''A general expansion to snowy and forest areas of the game, incentivising players to explore and build in the new expanded areas'''
+    description = '''bah'''
 
-[[dependencies.windswept]]
+[[dependencies.heart_crystals]]
     modId = "forge"
     mandatory = true
     versionRange = "[43.2.0,)"
     ordering = "NONE"
     side = "BOTH"
 
-[[dependencies.windswept]]
+[[dependencies.heart_crystals]]
     modId = "minecraft"
     mandatory = true
     versionRange = "[1.19.2,)"
     ordering = "NONE"
     side = "BOTH"
 
-[[dependencies.windswept]]
-    modId = "blueprint"
-    mandatory = true
-    versionRange = "[6.1.2,)"
-    ordering = "BEFORE"
-    side = "BOTH"

@@ -1,0 +1,12 @@
+{
+  "required": true,
+  "package": "com.rosemods.heart_crystals.core.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "minVersion": "0.8",
+  "refmap": "heart_crystals.refmap.json",
+  "mixins": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}

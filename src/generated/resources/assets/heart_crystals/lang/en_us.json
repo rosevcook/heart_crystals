@@ -1,5 +1,6 @@
 {
   "block.heart_crystals.heart_crystal": "Heart Crystal",
   "block.heart_crystals.heart_crystal.desc": "+1 Maximum Health",
-  "block.heart_crystals.heart_crystal.maximum": "Cannot use heart crystal; currently at maximum health!"
+  "block.heart_crystals.heart_crystal.maximum": "Cannot use heart crystal; currently at maximum health!",
+  "block.heart_crystals.heart_lantern": "Heart Lantern"
 }

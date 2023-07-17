@@ -18,6 +18,7 @@ public class HCLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         this.translateBlock(HCBlocks.HEART_CRYSTAL);
+        this.translateBlock(HCBlocks.HEART_LANTERN);
         this.add(HCBlocks.HEART_CRYSTAL.get().getDescriptionId() + ".desc", "+1 Maximum Health");
         this.add(HCBlocks.HEART_CRYSTAL.get().getDescriptionId() + ".maximum", "Cannot use heart crystal; currently at maximum health!");
     }

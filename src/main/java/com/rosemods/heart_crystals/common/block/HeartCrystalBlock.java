@@ -19,6 +19,10 @@ public class HeartCrystalBlock extends InjectedBlock {
     @OnlyIn(Dist.CLIENT)
     @Override
     public void animateTick(BlockState state, Level level, BlockPos pos, RandomSource rand) {
+        particles(level, pos, rand);
+    }
+
+    public static void particles(Level level, BlockPos pos, RandomSource rand) {
         double d0 = pos.getX() + .55d - (rand.nextFloat() * .1f);
         double d1 = pos.getY() + .55d - (rand.nextFloat() * .1f);
         double d2 = pos.getZ() + .55d - (rand.nextFloat() * .1f);

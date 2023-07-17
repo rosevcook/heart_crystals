@@ -2,10 +2,9 @@ package com.rosemods.heart_crystals.core;
 
 import com.rosemods.heart_crystals.core.data.client.HCLanguageProvider;
 import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
+import com.rosemods.heart_crystals.core.data.server.HCRecipeProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
-import com.rosemods.heart_crystals.core.registry.HCBlocks;
-import com.rosemods.heart_crystals.core.registry.HCItems;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -56,6 +55,7 @@ public class HeartCrystals {
 
         gen.addProvider(server, new HCLootTableProvider(event));
         gen.addProvider(server, new HCBlockTagProvider(event));
+        gen.addProvider(server, new HCRecipeProvider(event));
     }
 
 }

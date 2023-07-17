@@ -28,9 +28,10 @@ public class HeartCrystalItem extends BlockItem {
 
         if (info.heartCount < HCConfig.COMMON.maximum.get()) {
             info.heartCount++;
-            info.syncPlayerVariables(player);
+            info.syncHealthInfo(player);
             HCEvents.executeHealthCommand(info.heartCount * 2, player);
             stack.shrink(1);
+            player.heal(2f);
 
             return InteractionResultHolder.success(stack);
         } else

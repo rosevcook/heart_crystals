@@ -36,7 +36,7 @@ public class HCPlayerInfo {
             this.healthSet = false;
         }
 
-        public void syncPlayerVariables(Entity entity) {
+        public void syncHealthInfo(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer)
                 HeartCrystals.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new PlayerHealthInfoSync(this));
         }
@@ -92,7 +92,7 @@ public class HCPlayerInfo {
 
     }
 
-    public static class PlayerVariablesProvider implements ICapabilitySerializable<Tag> {
+    public static class PlayerHealthInfoProvider implements ICapabilitySerializable<Tag> {
         private final PlayerHealthInfo info = new PlayerHealthInfo();
         private final LazyOptional<PlayerHealthInfo> instance = LazyOptional.of(() -> this.info);
 

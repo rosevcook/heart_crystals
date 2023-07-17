@@ -22,16 +22,23 @@ public class HCEvents {
         Player player = event.getEntity();
         syncPlayerInfo(player);
 
-        if (player != null && !HCPlayerInfo.getPlayerHealthInfo(player).healthSet) {
-            int health = HCConfig.COMMON.minimum.get() * 2;
-            executeHealthCommand(health, player);
-            player.setHealth(health);
-            player.getCapability(HCPlayerInfo.HEALTH_INFO_CAPABILITY, null).ifPresent((capability) -> {
-                capability.healthSet = true;
-                capability.syncPlayerVariables(player);
-            });
+        if (player != null) {
+            HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
+            int minimum = HCConfig.COMMON.minimum.get();
+
+            if (!info.healthSet) {
+                executeHealthCommand(minimum * 2, player);
+                player.setHealth(minimum * 2);
+                info.healthSet = true;
+                info.syncHealthInfo(player);
+            } else if (info.heartCount < HCConfig.COMMON.minimum.get()) {
+                executeHealthCommand(minimum * 2, player);
+                player.setHealth(minimum * 2);
+                info.heartCount = minimum;
+                info.syncHealthInfo(player);
+            }
         }
-        
+
     }
 
     @SubscribeEvent
@@ -39,8 +46,11 @@ public class HCEvents {
         Player player = event.getEntity();
         syncPlayerInfo(event.getEntity());
 
-        if (player != null)
-            executeHealthCommand(HCPlayerInfo.getPlayerHealthInfo(player).heartCount * 2, player);
+        if (player != null) {
+            HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
+            executeHealthCommand(info.heartCount * 2, player);
+            player.setHealth(info.heartCount * 2);
+        }
     }
 
     @SubscribeEvent
@@ -61,17 +71,19 @@ public class HCEvents {
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player && !(event.getObject() instanceof FakePlayer))
-            event.addCapability(new ResourceLocation(HeartCrystals.MODID, "player_info"), new HCPlayerInfo.PlayerVariablesProvider());
+            event.addCapability(new ResourceLocation(HeartCrystals.MODID, "player_info"), new HCPlayerInfo.PlayerHealthInfoProvider());
     }
 
     public static void executeHealthCommand(int health, Player player) { // prob a better way of doing this lol
         if (!player.level.isClientSide() && player.getServer() != null)
-            player.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, player.position(), player.getRotationVector(), player.level instanceof ServerLevel serverLevel ? serverLevel: null, 4, player.getName().getString(), player.getDisplayName(), player.level.getServer(), player), "execute as @p run attribute @s minecraft:generic.max_health base set " + health);
+            player.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, player.position(), player.getRotationVector(),
+                    player.level instanceof ServerLevel serverLevel ? serverLevel: null, 4, player.getName().getString(), player.getDisplayName(),
+                    player.level.getServer(), player), "execute as @p run attribute @s minecraft:generic.max_health base set " + health);
     }
 
     private static void syncPlayerInfo(Player player) {
         if (player != null && !player.level.isClientSide())
-            HCPlayerInfo.getPlayerHealthInfo(player).syncPlayerVariables(player);
+            HCPlayerInfo.getPlayerHealthInfo(player).syncHealthInfo(player);
     }
 
 }

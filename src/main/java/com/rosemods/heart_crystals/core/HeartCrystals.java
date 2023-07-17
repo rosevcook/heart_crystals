@@ -6,6 +6,7 @@ import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
 import com.rosemods.heart_crystals.core.registry.HCItems;
+import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
@@ -22,14 +23,14 @@ import net.minecraftforge.network.simple.SimpleChannel;
 @Mod(HeartCrystals.MODID)
 public class HeartCrystals {
     public static final String MODID = "heart_crystals";
+    public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MODID);
     public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, MODID), () -> "1", "1"::equals, "1"::equals);
 
     public HeartCrystals() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         final ModLoadingContext context = ModLoadingContext.get();
 
-        HCBlocks.BLOCKS.register(bus);
-        HCItems.ITEMS.register(bus);
+        REGISTRY_HELPER.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::registerCapabilities);

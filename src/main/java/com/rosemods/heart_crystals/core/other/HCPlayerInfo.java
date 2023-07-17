@@ -1,5 +1,6 @@
 package com.rosemods.heart_crystals.core.other;
 
+import com.rosemods.heart_crystals.core.HCConfig;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.Direction;
@@ -27,8 +28,13 @@ public class HCPlayerInfo {
     }
 
     public static class PlayerHealthInfo {
-        public int HeartCount = 3;
-        public boolean HealthSet = false;
+        public int heartCount;
+        public boolean healthSet;
+
+        public PlayerHealthInfo() {
+            this.heartCount = HCConfig.COMMON.minimum.get();
+            this.healthSet = false;
+        }
 
         public void syncPlayerVariables(Entity entity) {
             if (entity instanceof ServerPlayer serverPlayer)
@@ -37,16 +43,16 @@ public class HCPlayerInfo {
 
         public Tag writeNBT() {
             CompoundTag nbt = new CompoundTag();
-            nbt.putInt("PlayerHeartsCount", this.HeartCount);
-            nbt.putBoolean("PlayerBaseHealthSet", this.HealthSet);
+            nbt.putInt("PlayerHeartsCount", this.heartCount);
+            nbt.putBoolean("PlayerBaseHealthSet", this.healthSet);
 
             return nbt;
         }
 
         public void readNBT(Tag Tag) {
             CompoundTag nbt = (CompoundTag)Tag;
-            this.HeartCount = nbt.getInt("PlayerHeartsCount");
-            this.HealthSet = nbt.getBoolean("PlayerBaseHealthSet");
+            this.heartCount = nbt.getInt("PlayerHeartsCount");
+            this.healthSet = nbt.getBoolean("PlayerBaseHealthSet");
         }
     }
 
@@ -76,8 +82,8 @@ public class HCPlayerInfo {
             context.enqueueWork(() -> {
                 if (!context.getDirection().getReceptionSide().isServer() && Minecraft.getInstance().player != null) {
                     PlayerHealthInfo info = getPlayerHealthInfo(Minecraft.getInstance().player);
-                    info.HeartCount = sync.getHealthInfo().HeartCount;
-                    info.HealthSet = sync.getHealthInfo().HealthSet;
+                    info.heartCount = sync.getHealthInfo().heartCount;
+                    info.healthSet = sync.getHealthInfo().healthSet;
                 }
             });
 

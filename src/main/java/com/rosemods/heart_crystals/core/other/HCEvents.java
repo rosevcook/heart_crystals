@@ -1,5 +1,6 @@
 package com.rosemods.heart_crystals.core.other;
 
+import com.rosemods.heart_crystals.core.HCConfig;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import net.minecraft.commands.CommandSource;
 import net.minecraft.commands.CommandSourceStack;
@@ -21,11 +22,12 @@ public class HCEvents {
         Player player = event.getEntity();
         syncPlayerInfo(player);
 
-        if (player != null && !HCPlayerInfo.getPlayerHealthInfo(player).HealthSet) {
-            executeHealthCommand(6, player);
-            player.setHealth(6);
+        if (player != null && !HCPlayerInfo.getPlayerHealthInfo(player).healthSet) {
+            int health = HCConfig.COMMON.minimum.get() * 2;
+            executeHealthCommand(health, player);
+            player.setHealth(health);
             player.getCapability(HCPlayerInfo.HEALTH_INFO_CAPABILITY, null).ifPresent((capability) -> {
-                capability.HealthSet = true;
+                capability.healthSet = true;
                 capability.syncPlayerVariables(player);
             });
         }
@@ -38,7 +40,7 @@ public class HCEvents {
         syncPlayerInfo(event.getEntity());
 
         if (player != null)
-            executeHealthCommand(HCPlayerInfo.getPlayerHealthInfo(player).HeartCount * 2, player);
+            executeHealthCommand(HCPlayerInfo.getPlayerHealthInfo(player).heartCount * 2, player);
     }
 
     @SubscribeEvent
@@ -52,8 +54,8 @@ public class HCEvents {
         HCPlayerInfo.PlayerHealthInfo original = HCPlayerInfo.getPlayerHealthInfo(event.getOriginal());
         HCPlayerInfo.PlayerHealthInfo clone = HCPlayerInfo.getPlayerHealthInfo(event.getEntity());
 
-        clone.HeartCount = original.HeartCount;
-        clone.HealthSet = original.HealthSet;
+        clone.heartCount = original.heartCount;
+        clone.healthSet = original.healthSet;
     }
 
     @SubscribeEvent

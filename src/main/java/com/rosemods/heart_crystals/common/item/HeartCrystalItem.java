@@ -26,10 +26,10 @@ public class HeartCrystalItem extends BlockItem {
         ItemStack stack = player.getItemInHand(hand);
         HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
 
-        if (info.HeartCount < HCConfig.COMMON.maximum.get()) {
-            info.HeartCount++;
+        if (info.heartCount < HCConfig.COMMON.maximum.get()) {
+            info.heartCount++;
             info.syncPlayerVariables(player);
-            HCEvents.executeHealthCommand(info.HeartCount * 2, player);
+            HCEvents.executeHealthCommand(info.heartCount * 2, player);
             stack.shrink(1);
 
             return InteractionResultHolder.success(stack);

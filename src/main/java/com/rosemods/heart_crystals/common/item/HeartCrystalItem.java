@@ -4,23 +4,24 @@ import com.rosemods.heart_crystals.core.HCConfig;
 import com.rosemods.heart_crystals.core.other.HCEvents;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
 import com.rosemods.heart_crystals.core.registry.HCSoundEvents;
+import com.teamabnormals.blueprint.common.item.InjectedBlockItem;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 
-public class HeartCrystalItem extends BlockItem {
+public class HeartCrystalItem extends InjectedBlockItem {
     public HeartCrystalItem(Block block, Properties properties) {
-        super(block, properties);
+        super(Items.AMETHYST_SHARD, block, properties);
     }
 
     @Override

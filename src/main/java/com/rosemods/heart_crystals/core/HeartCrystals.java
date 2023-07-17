@@ -5,8 +5,10 @@ import com.rosemods.heart_crystals.core.data.client.HCModelProvider;
 import com.rosemods.heart_crystals.core.data.client.HCSoundProvider;
 import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
 import com.rosemods.heart_crystals.core.data.server.HCRecipeProvider;
+import com.rosemods.heart_crystals.core.data.server.tags.HCBannerPatternTagProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
+import com.rosemods.heart_crystals.core.registry.HCBannerPatterns;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
@@ -25,13 +27,14 @@ import net.minecraftforge.network.simple.SimpleChannel;
 public class HeartCrystals {
     public static final String MODID = "heart_crystals";
     public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MODID);
-    public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(new ResourceLocation(MODID, MODID), () -> "1", "1"::equals, "1"::equals);
+    public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(REGISTRY_HELPER.prefix(MODID), () -> "1", "1"::equals, "1"::equals);
 
     public HeartCrystals() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         final ModLoadingContext context = ModLoadingContext.get();
 
         REGISTRY_HELPER.register(bus);
+        HCBannerPatterns.BANNER_PATTERNS.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::registerCapabilities);
@@ -58,8 +61,9 @@ public class HeartCrystals {
         gen.addProvider(client, new HCSoundProvider(event));
 
         gen.addProvider(server, new HCLootTableProvider(event));
-        gen.addProvider(server, new HCBlockTagProvider(event));
         gen.addProvider(server, new HCRecipeProvider(event));
+        gen.addProvider(server, new HCBlockTagProvider(event));
+        gen.addProvider(server, new HCBannerPatternTagProvider(event));
     }
 
 }

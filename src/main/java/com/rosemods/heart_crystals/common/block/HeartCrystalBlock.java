@@ -25,7 +25,7 @@ import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
-public class HeartCrystalBlock extends InjectedBlock {
+public class HeartCrystalBlock extends Block {
     public static final DirectionProperty FACING = BlockStateProperties.HORIZONTAL_FACING;
     public static final VoxelShape[] SHAPES = new VoxelShape[] {
             box(0f, 0f, 4f, 16f, 15f, 12f),
@@ -33,7 +33,7 @@ public class HeartCrystalBlock extends InjectedBlock {
     };
 
     public HeartCrystalBlock(Properties properties) {
-        super(Items.AMETHYST_SHARD, properties);
+        super(properties);
     }
 
     @Override

@@ -1,0 +1,10 @@
+{
+  "block.heart_crystal.use": {
+    "sounds": [
+      {
+        "name": "heart_crystals:heart_crystal",
+        "stream": true
+      }
+    ]
+  }
+}

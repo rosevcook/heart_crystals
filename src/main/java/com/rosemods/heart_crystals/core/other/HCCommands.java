@@ -15,10 +15,8 @@ import net.minecraftforge.fml.common.Mod;
 
 @Mod.EventBusSubscriber(modid = HeartCrystals.MODID)
 public class HCCommands {
-    public static final int permissionLevel = 1;
-
     @SubscribeEvent
-    public static void onRegisterCommands(RegisterCommandsEvent event) {
+    public static void registerCommands(RegisterCommandsEvent event) {
         event.getDispatcher().register(createCommand("reset_hearts", context -> {
             Entity entity = context.getSource().getEntity();
 
@@ -38,7 +36,7 @@ public class HCCommands {
     }
 
     private static LiteralArgumentBuilder<CommandSourceStack> createCommand(String name, Command<CommandSourceStack> command) {
-        return Commands.literal(HeartCrystals.MODID).then(Commands.literal(name).requires(stack -> stack.hasPermission(permissionLevel)).executes(command));
+        return Commands.literal(HeartCrystals.MODID).then(Commands.literal(name).requires(stack -> stack.hasPermission(1)).executes(command));
     }
 
 }

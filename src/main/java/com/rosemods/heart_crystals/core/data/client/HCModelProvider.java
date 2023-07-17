@@ -2,7 +2,6 @@ package com.rosemods.heart_crystals.core.data.client;
 
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
-import net.minecraft.core.Direction;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.BlockStateProvider;

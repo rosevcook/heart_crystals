@@ -2,11 +2,10 @@ package com.rosemods.heart_crystals.core.other;
 
 import com.rosemods.heart_crystals.core.HCConfig;
 import com.rosemods.heart_crystals.core.HeartCrystals;
-import net.minecraft.commands.CommandSource;
-import net.minecraft.commands.CommandSourceStack;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -27,12 +26,12 @@ public class HCEvents {
             int minimum = HCConfig.COMMON.minimum.get();
 
             if (!info.healthSet) {
-                executeHealthCommand(minimum * 2, player);
+                setMaxHealthAttribute(minimum * 2, player);
                 player.setHealth(minimum * 2);
                 info.healthSet = true;
                 info.syncHealthInfo(player);
             } else if (info.heartCount < HCConfig.COMMON.minimum.get()) {
-                executeHealthCommand(minimum * 2, player);
+                setMaxHealthAttribute(minimum * 2, player);
                 player.setHealth(minimum * 2);
                 info.heartCount = minimum;
                 info.syncHealthInfo(player);
@@ -48,7 +47,7 @@ public class HCEvents {
 
         if (player != null) {
             HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
-            executeHealthCommand(info.heartCount * 2, player);
+            setMaxHealthAttribute(info.heartCount * 2, player);
             player.setHealth(info.heartCount * 2);
         }
     }
@@ -74,11 +73,14 @@ public class HCEvents {
             event.addCapability(new ResourceLocation(HeartCrystals.MODID, "player_info"), new HCPlayerInfo.PlayerHealthInfoProvider());
     }
 
-    public static void executeHealthCommand(int health, Player player) { // prob a better way of doing this lol
-        if (!player.level.isClientSide() && player.getServer() != null)
-            player.getServer().getCommands().performPrefixedCommand(new CommandSourceStack(CommandSource.NULL, player.position(), player.getRotationVector(),
-                    player.level instanceof ServerLevel serverLevel ? serverLevel: null, 4, player.getName().getString(), player.getDisplayName(),
-                    player.level.getServer(), player), "execute as @p run attribute @s minecraft:generic.max_health base set " + health);
+    public static void setMaxHealthAttribute(int health, Player player) {
+        if (!player.level.isClientSide() && player.getServer() != null) {
+            AttributeInstance attribute = player.getAttributes().getInstance(Attributes.MAX_HEALTH);
+
+            if (attribute != null)
+                attribute.setBaseValue(health);
+        }
+
     }
 
     private static void syncPlayerInfo(Player player) {

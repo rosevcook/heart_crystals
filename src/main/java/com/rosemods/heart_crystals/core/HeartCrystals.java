@@ -1,10 +1,15 @@
 package com.rosemods.heart_crystals.core;
 
+import com.rosemods.heart_crystals.core.data.client.HCLanguageProvider;
+import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
+import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
 import com.rosemods.heart_crystals.core.registry.HCItems;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
+import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -28,6 +33,7 @@ public class HeartCrystals {
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::registerCapabilities);
+        bus.addListener(this::dataSetup);
 
         context.registerConfig(ModConfig.Type.COMMON, HCConfig.COMMON_SPEC);
     }
@@ -38,6 +44,17 @@ public class HeartCrystals {
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.register(HCPlayerInfo.PlayerHealthInfo.class);
+    }
+
+    private void dataSetup(GatherDataEvent event) {
+        DataGenerator gen = event.getGenerator();
+        boolean client = event.includeClient();
+        boolean server = event.includeServer();
+
+        gen.addProvider(client, new HCLanguageProvider(event));
+
+        gen.addProvider(server, new HCLootTableProvider(event));
+        gen.addProvider(server, new HCBlockTagProvider(event));
     }
 
 }

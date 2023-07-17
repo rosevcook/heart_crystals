@@ -12,6 +12,6 @@ import net.minecraftforge.registries.RegistryObject;
 public final class HCItems {
     public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(ForgeRegistries.ITEMS, HeartCrystals.MODID);
 
-    public static final RegistryObject<Item> HEART_CRYSTAL = ITEMS.register("heart_crystal", () -> new HeartCrystalItem(new Item.Properties().tab(CreativeModeTab.TAB_MISC).rarity(Rarity.UNCOMMON).stacksTo(16)));
+    public static final RegistryObject<Item> HEART_CRYSTAL = ITEMS.register("heart_crystal", () -> new HeartCrystalItem(HCBlocks.HEART_CRYSTAL.get(), new Item.Properties().tab(CreativeModeTab.TAB_MISC).rarity(Rarity.UNCOMMON).stacksTo(16)));
 
 }

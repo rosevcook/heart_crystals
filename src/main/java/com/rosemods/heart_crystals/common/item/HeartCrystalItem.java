@@ -8,16 +8,17 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
 
 import java.util.List;
 
-public class HeartCrystalItem extends Item {
-    public HeartCrystalItem(Properties properties) {
-        super(properties);
+public class HeartCrystalItem extends BlockItem {
+    public HeartCrystalItem(Block block, Properties properties) {
+        super(block, properties);
     }
 
     @Override
@@ -36,12 +37,11 @@ public class HeartCrystalItem extends Item {
             player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".maximum"), true);
 
         return InteractionResultHolder.fail(stack);
-
     }
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.GRAY));
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.DARK_PURPLE));
     }
 
 }

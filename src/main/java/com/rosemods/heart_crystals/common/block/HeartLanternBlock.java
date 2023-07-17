@@ -25,7 +25,7 @@ public class HeartLanternBlock extends LanternBlock implements EntityBlock {
 
     @Override
     public <T extends BlockEntity> BlockEntityTicker<T> getTicker(Level level, BlockState state, BlockEntityType<T> type) {
-        return (BlockEntityTicker<T>) new HeartLanternBlockEntity(null, state);
+        return (BlockEntityTicker<T>) new HeartLanternBlockEntity(new BlockPos(0, 0, 0), state); //this is dumb
     }
 
     @OnlyIn(Dist.CLIENT)

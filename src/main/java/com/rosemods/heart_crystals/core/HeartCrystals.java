@@ -1,6 +1,7 @@
 package com.rosemods.heart_crystals.core;
 
 import com.rosemods.heart_crystals.core.data.client.HCLanguageProvider;
+import com.rosemods.heart_crystals.core.data.client.HCModelProvider;
 import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
 import com.rosemods.heart_crystals.core.data.server.HCRecipeProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
@@ -52,6 +53,7 @@ public class HeartCrystals {
         boolean server = event.includeServer();
 
         gen.addProvider(client, new HCLanguageProvider(event));
+        gen.addProvider(client, new HCModelProvider(event));
 
         gen.addProvider(server, new HCLootTableProvider(event));
         gen.addProvider(server, new HCBlockTagProvider(event));

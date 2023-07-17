@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "heart_crystals:block/heart_crystal",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "heart_crystals:block/heart_crystal"
+    },
+    "facing=south": {
+      "model": "heart_crystals:block/heart_crystal",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "heart_crystals:block/heart_crystal",
+      "y": 270
+    }
+  }
+}

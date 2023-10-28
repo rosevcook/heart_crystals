@@ -13,7 +13,7 @@ import net.minecraftforge.registries.RegistryObject;
 import org.codehaus.plexus.util.StringUtils;
 
 import static com.rosemods.heart_crystals.core.registry.HCBlocks.*;
-import static com.rosemods.heart_crystals.core.registry.HCItems.*;
+import static com.rosemods.heart_crystals.core.registry.HCItems.HEART_BANNER_PATTERN;
 
 public class HCLanguageProvider extends LanguageProvider {
     public HCLanguageProvider(GatherDataEvent event) {

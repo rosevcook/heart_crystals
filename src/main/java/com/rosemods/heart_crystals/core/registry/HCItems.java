@@ -3,11 +3,9 @@ package com.rosemods.heart_crystals.core.registry;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import com.rosemods.heart_crystals.core.other.tags.HCBannerPatternTags;
 import com.teamabnormals.blueprint.common.item.BlueprintBannerPatternItem;
-import com.teamabnormals.blueprint.common.item.InjectedItem;
 import com.teamabnormals.blueprint.core.util.registry.ItemSubRegistryHelper;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.Items;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 

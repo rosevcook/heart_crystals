@@ -20,10 +20,11 @@ import net.minecraftforge.network.PacketDistributor;
 import java.util.function.Supplier;
 
 public class HCPlayerInfo {
-    public static final Capability<PlayerHealthInfo> HEALTH_INFO_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
+    public static final Capability<PlayerHealthInfo> HEALTH_INFO_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
+    });
 
     public static PlayerHealthInfo getPlayerHealthInfo(Entity entity) {
-        return entity.getCapability(HCPlayerInfo.HEALTH_INFO_CAPABILITY,null).orElse(new PlayerHealthInfo());
+        return entity.getCapability(HCPlayerInfo.HEALTH_INFO_CAPABILITY, null).orElse(new PlayerHealthInfo());
     }
 
     public static class PlayerHealthInfo {
@@ -49,7 +50,7 @@ public class HCPlayerInfo {
         }
 
         public void readNBT(Tag Tag) {
-            CompoundTag nbt = (CompoundTag)Tag;
+            CompoundTag nbt = (CompoundTag) Tag;
             this.heartCount = nbt.getInt("PlayerHeartsCount");
             this.healthSet = nbt.getBoolean("PlayerBaseHealthSet");
         }
@@ -73,7 +74,7 @@ public class HCPlayerInfo {
         }
 
         public static void buffer(PlayerHealthInfoSync message, FriendlyByteBuf buffer) {
-            buffer.writeNbt((CompoundTag)message.getHealthInfo().writeNBT());
+            buffer.writeNbt((CompoundTag) message.getHealthInfo().writeNBT());
         }
 
         public static void handler(PlayerHealthInfoSync sync, Supplier<NetworkEvent.Context> contextSupplier) {
@@ -97,7 +98,7 @@ public class HCPlayerInfo {
         private final LazyOptional<PlayerHealthInfo> instance = LazyOptional.of(() -> this.info);
 
         @Override
-        public<T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
+        public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
             return cap == HCPlayerInfo.HEALTH_INFO_CAPABILITY ? this.instance.cast() : LazyOptional.empty();
         }
 

@@ -36,7 +36,7 @@ public class HeartCrystalItem extends InjectedBlockItem {
             stack.shrink(1);
             player.heal(2f);
             player.getCooldowns().addCooldown(this, 24);
-            level.playSound(player, player.blockPosition(), HCSoundEvents.HEART_CRYSTAL_USE.get(), SoundSource.PLAYERS, .65f, 1f + ((level.random.nextFloat() -.5f) / 8f));
+            level.playSound(player, player.blockPosition(), HCSoundEvents.HEART_CRYSTAL_USE.get(), SoundSource.PLAYERS, .65f, 1f + ((level.random.nextFloat() - .5f) / 8f));
 
             return InteractionResultHolder.success(stack);
         } else

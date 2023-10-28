@@ -10,7 +10,10 @@ import com.rosemods.heart_crystals.core.data.server.tags.HCBannerPatternTagProvi
 import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCPaintingVariantTagsProvider;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
-import com.rosemods.heart_crystals.core.registry.*;
+import com.rosemods.heart_crystals.core.registry.HCBannerPatterns;
+import com.rosemods.heart_crystals.core.registry.HCBlocks;
+import com.rosemods.heart_crystals.core.registry.HCFeatures;
+import com.rosemods.heart_crystals.core.registry.HCPaintingVariants;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
@@ -51,7 +54,7 @@ public class HeartCrystals {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() ->  {
+        event.enqueueWork(() -> {
             PACKET_HANDLER.registerMessage(0, HCPlayerInfo.PlayerHealthInfoSync.class, HCPlayerInfo.PlayerHealthInfoSync::buffer, HCPlayerInfo.PlayerHealthInfoSync::new, HCPlayerInfo.PlayerHealthInfoSync::handler);
             DataUtil.addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
         });

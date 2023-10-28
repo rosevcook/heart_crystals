@@ -23,6 +23,7 @@ import net.minecraft.world.level.block.state.properties.BooleanProperty;
 import net.minecraft.world.level.material.FluidState;
 import net.minecraft.world.level.material.Fluids;
 import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.Shapes;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -31,7 +32,7 @@ import javax.annotation.Nullable;
 
 public class HeartLanternBlock extends Block implements EntityBlock, SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
-    private static final VoxelShape SHAPE = box(3f, 0f, 3f, 13f, 16f, 13f);
+    private static final VoxelShape SHAPE = Shapes.or(box(3f, 0f, 3f, 13f, 14f, 13f), box(6f, 14f, 6f, 10f, 16f, 10f));
 
     public HeartLanternBlock(Properties properties) {
         super(properties);

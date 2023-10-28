@@ -30,7 +30,7 @@ public final class HCFeatures {
     public static final class Placements {
         public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, HeartCrystals.MODID);
 
-        public static final RegistryObject<PlacedFeature> HEART_CRYSTAL = register("heart_crystal", Features.HEART_CRYSTAL, RarityFilter.onAverageOnceEvery(1), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
+        public static final RegistryObject<PlacedFeature> HEART_CRYSTAL = register("heart_crystal", Features.HEART_CRYSTAL, RarityFilter.onAverageOnceEvery(2), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 
         public static RegistryObject<PlacedFeature> register(String name, RegistryObject<? extends ConfiguredFeature<?, ?>> configuredFeature, PlacementModifier... placementModifiers) {
             return PLACED_FEATURES.register(name, () -> new PlacedFeature((Holder<ConfiguredFeature<?, ?>>) configuredFeature.getHolder().get(), List.of(placementModifiers)));

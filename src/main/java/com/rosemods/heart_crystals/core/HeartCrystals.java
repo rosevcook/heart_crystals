@@ -5,13 +5,17 @@ import com.rosemods.heart_crystals.core.data.client.HCModelProvider;
 import com.rosemods.heart_crystals.core.data.client.HCSoundProvider;
 import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
 import com.rosemods.heart_crystals.core.data.server.HCRecipeProvider;
+import com.rosemods.heart_crystals.core.data.server.modifiers.HCBiomeModifier;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBannerPatternTagProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
 import com.rosemods.heart_crystals.core.registry.HCBannerPatterns;
+import com.rosemods.heart_crystals.core.registry.HCFeatures;
+import com.rosemods.heart_crystals.core.registry.HCItems;
+import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -35,6 +39,9 @@ public class HeartCrystals {
 
         REGISTRY_HELPER.register(bus);
         HCBannerPatterns.BANNER_PATTERNS.register(bus);
+        HCFeatures.FEATURES.register(bus);
+        HCFeatures.Features.CONFIGURED_FEATURES.register(bus);
+        HCFeatures.Placements.PLACED_FEATURES.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::registerCapabilities);
@@ -44,7 +51,10 @@ public class HeartCrystals {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        PACKET_HANDLER.registerMessage(0, HCPlayerInfo.PlayerHealthInfoSync.class, HCPlayerInfo.PlayerHealthInfoSync::buffer, HCPlayerInfo.PlayerHealthInfoSync::new, HCPlayerInfo.PlayerHealthInfoSync::handler);
+        event.enqueueWork(() ->  {
+            PACKET_HANDLER.registerMessage(0, HCPlayerInfo.PlayerHealthInfoSync.class, HCPlayerInfo.PlayerHealthInfoSync::buffer, HCPlayerInfo.PlayerHealthInfoSync::new, HCPlayerInfo.PlayerHealthInfoSync::handler);
+            DataUtil.addMix(Potions.AWKWARD, HCItems.HEART_CRYSTAL_SHARD.get(), Potions.REGENERATION);
+        });
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
@@ -64,6 +74,7 @@ public class HeartCrystals {
         gen.addProvider(server, new HCRecipeProvider(event));
         gen.addProvider(server, new HCBlockTagProvider(event));
         gen.addProvider(server, new HCBannerPatternTagProvider(event));
+        gen.addProvider(server, HCBiomeModifier.register(event));
     }
 
 }

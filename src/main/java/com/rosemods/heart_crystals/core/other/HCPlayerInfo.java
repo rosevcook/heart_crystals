@@ -19,7 +19,6 @@ import net.minecraftforge.network.PacketDistributor;
 
 import java.util.function.Supplier;
 
-
 public class HCPlayerInfo {
     public static final Capability<PlayerHealthInfo> HEALTH_INFO_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {});
 
@@ -54,6 +53,7 @@ public class HCPlayerInfo {
             this.heartCount = nbt.getInt("PlayerHeartsCount");
             this.healthSet = nbt.getBoolean("PlayerBaseHealthSet");
         }
+
     }
 
     public static class PlayerHealthInfoSync {

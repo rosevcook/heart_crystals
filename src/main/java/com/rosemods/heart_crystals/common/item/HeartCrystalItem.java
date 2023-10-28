@@ -47,7 +47,7 @@ public class HeartCrystalItem extends InjectedBlockItem {
 
     @Override
     public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc").withStyle(ChatFormatting.DARK_PURPLE));
+        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", HCConfig.COMMON.maximum.get() + "").withStyle(ChatFormatting.DARK_PURPLE));
     }
 
 }

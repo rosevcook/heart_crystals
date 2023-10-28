@@ -10,6 +10,7 @@ import com.rosemods.heart_crystals.core.data.server.tags.HCBannerPatternTagProvi
 import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
 import com.rosemods.heart_crystals.core.registry.HCBannerPatterns;
+import com.rosemods.heart_crystals.core.registry.HCBlocks;
 import com.rosemods.heart_crystals.core.registry.HCFeatures;
 import com.rosemods.heart_crystals.core.registry.HCItems;
 import com.teamabnormals.blueprint.core.util.DataUtil;
@@ -53,7 +54,7 @@ public class HeartCrystals {
     private void commonSetup(FMLCommonSetupEvent event) {
         event.enqueueWork(() ->  {
             PACKET_HANDLER.registerMessage(0, HCPlayerInfo.PlayerHealthInfoSync.class, HCPlayerInfo.PlayerHealthInfoSync::buffer, HCPlayerInfo.PlayerHealthInfoSync::new, HCPlayerInfo.PlayerHealthInfoSync::handler);
-            DataUtil.addMix(Potions.AWKWARD, HCItems.HEART_CRYSTAL_SHARD.get(), Potions.REGENERATION);
+            DataUtil.addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
         });
     }
 

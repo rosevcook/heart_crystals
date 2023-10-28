@@ -15,7 +15,6 @@ import net.minecraftforge.registries.RegistryObject;
 public class HCItems {
     public static final ItemSubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getItemSubHelper();
 
-    public static final RegistryObject<Item> HEART_CRYSTAL_SHARD = HELPER.createItem("heart_crystal_shard", () -> new InjectedItem(Items.AMETHYST_SHARD, new Item.Properties().tab(CreativeModeTab.TAB_MISC)));
     public static final RegistryObject<Item> HEART_BANNER_PATTERN = HELPER.createItem("heart_banner_pattern", () -> new BlueprintBannerPatternItem(HCBannerPatternTags.HEART, new Item.Properties().tab(CreativeModeTab.TAB_MISC).stacksTo(1)));
 
 }

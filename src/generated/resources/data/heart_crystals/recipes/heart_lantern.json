@@ -2,16 +2,16 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "#": {
-      "item": "heart_crystals:heart_crystal"
+      "item": "heart_crystals:heart_crystal_shard"
     },
     "I": {
       "item": "minecraft:iron_nugget"
     }
   },
   "pattern": [
-    "III",
     "I#I",
-    "III"
+    "###",
+    "I#I"
   ],
   "result": {
     "item": "heart_crystals:heart_lantern"

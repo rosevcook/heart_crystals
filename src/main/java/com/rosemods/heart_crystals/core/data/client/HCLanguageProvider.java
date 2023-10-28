@@ -1,8 +1,6 @@
 package com.rosemods.heart_crystals.core.data.client;
 
 import com.rosemods.heart_crystals.core.HeartCrystals;
-import com.rosemods.heart_crystals.core.registry.HCBlocks;
-import com.rosemods.heart_crystals.core.registry.HCItems;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -14,6 +12,9 @@ import net.minecraftforge.registries.IForgeRegistry;
 import net.minecraftforge.registries.RegistryObject;
 import org.codehaus.plexus.util.StringUtils;
 
+import static com.rosemods.heart_crystals.core.registry.HCBlocks.*;
+import static com.rosemods.heart_crystals.core.registry.HCItems.*;
+
 public class HCLanguageProvider extends LanguageProvider {
     public HCLanguageProvider(GatherDataEvent event) {
         super(event.getGenerator(), HeartCrystals.MODID, "en_us");
@@ -22,14 +23,14 @@ public class HCLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         //items
-        this.translateItem(HCItems.HEART_CRYSTAL_SHARD);
-        this.translateBannerPattern(HCItems.HEART_BANNER_PATTERN, "heart");
+        this.translateBannerPattern(HEART_BANNER_PATTERN, "heart");
 
         //blocks
-        this.translateBlock(HCBlocks.HEART_CRYSTAL);
-        this.translateBlock(HCBlocks.HEART_LANTERN);
-        this.addDescription(HCBlocks.HEART_CRYSTAL, "+1 Maximum Health");
-        this.add(HCBlocks.HEART_CRYSTAL.get().getDescriptionId() + ".maximum", "Cannot use heart crystal; currently at maximum health!");
+        this.translateBlock(HEART_CRYSTAL);
+        this.translateBlock(HEART_LANTERN);
+        this.translateBlock(HEART_CRYSTAL_SHARD);
+        this.addDescription(HEART_CRYSTAL, "+1 Permanent Heart (Max %s)");
+        this.add(HEART_CRYSTAL.get().getDescriptionId() + ".maximum", "Cannot use heart crystal; currently at maximum hearts!");
     }
 
     private void translateBannerPattern(RegistryObject<? extends Item> item, String name) {
@@ -38,7 +39,8 @@ public class HCLanguageProvider extends LanguageProvider {
         this.addDescription(item, desc);
 
         for (DyeColor dye : DyeColor.values())
-            this.add("block.minecraft.banner." + HeartCrystals.MODID + "." + name + "." + dye.getName(), StringUtils.capitaliseAllWords(dye.getName().replace('_', ' ')) + " " + desc);
+            this.add("block.minecraft.banner." + HeartCrystals.MODID + "." + name + "." + dye.getName(),
+                    StringUtils.capitaliseAllWords(dye.getName().replace('_', ' ')) + " " + desc);
     }
 
     private void addDescription(RegistryObject<? extends ItemLike> item, String desc) {

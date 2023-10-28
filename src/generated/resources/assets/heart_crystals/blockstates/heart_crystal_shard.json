@@ -1,0 +1,56 @@
+{
+  "variants": {
+    "facing=down,waterlogged=false": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 180
+    },
+    "facing=down,waterlogged=true": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 180
+    },
+    "facing=east,waterlogged=false": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 90,
+      "y": 90
+    },
+    "facing=east,waterlogged=true": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 90,
+      "y": 90
+    },
+    "facing=north,waterlogged=false": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 90
+    },
+    "facing=north,waterlogged=true": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 90
+    },
+    "facing=south,waterlogged=false": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 90,
+      "y": 180
+    },
+    "facing=south,waterlogged=true": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 90,
+      "y": 180
+    },
+    "facing=up,waterlogged=false": {
+      "model": "heart_crystals:block/heart_crystal_shard"
+    },
+    "facing=up,waterlogged=true": {
+      "model": "heart_crystals:block/heart_crystal_shard"
+    },
+    "facing=west,waterlogged=false": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 90,
+      "y": 270
+    },
+    "facing=west,waterlogged=true": {
+      "model": "heart_crystals:block/heart_crystal_shard",
+      "x": 90,
+      "y": 270
+    }
+  }
+}

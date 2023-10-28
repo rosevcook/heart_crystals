@@ -1,7 +1,5 @@
 package com.rosemods.heart_crystals.core.data.server;
 
-import com.rosemods.heart_crystals.core.registry.HCBlocks;
-import com.rosemods.heart_crystals.core.registry.HCItems;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
@@ -15,6 +13,9 @@ import net.minecraftforge.registries.RegistryObject;
 
 import java.util.function.Consumer;
 
+import static com.rosemods.heart_crystals.core.registry.HCBlocks.*;
+import static com.rosemods.heart_crystals.core.registry.HCItems.*;
+
 public class HCRecipeProvider extends RecipeProvider {
     public HCRecipeProvider(GatherDataEvent event) {
         super(event.getGenerator());
@@ -22,9 +23,10 @@ public class HCRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(HCBlocks.HEART_LANTERN.get()).define('#', HCBlocks.HEART_CRYSTAL.get()).define('I', Items.IRON_NUGGET).pattern("III").pattern("I#I").pattern("III").unlockedBy(getHasName(HCBlocks.HEART_CRYSTAL.get()), has(HCBlocks.HEART_CRYSTAL.get())).save(consumer, getSaveLocation(HCBlocks.HEART_LANTERN));
-        ShapedRecipeBuilder.shaped(HCBlocks.HEART_CRYSTAL.get()).define('#', HCItems.HEART_CRYSTAL_SHARD.get()).pattern("###").pattern("###").pattern("###").unlockedBy(getHasName(HCItems.HEART_CRYSTAL_SHARD.get()), has(HCItems.HEART_CRYSTAL_SHARD.get())).save(consumer, getSaveLocation(HCBlocks.HEART_CRYSTAL));
-        ShapelessRecipeBuilder.shapeless(HCItems.HEART_BANNER_PATTERN.get()).requires(Items.PAPER).requires(HCItems.HEART_CRYSTAL_SHARD.get()).unlockedBy(getHasName(HCItems.HEART_CRYSTAL_SHARD.get()), has(HCItems.HEART_CRYSTAL_SHARD.get())).save(consumer, getSaveLocation(HCItems.HEART_BANNER_PATTERN));
+        ShapedRecipeBuilder.shaped(HEART_LANTERN.get()).define('#', HEART_CRYSTAL_SHARD.get()).define('I', Items.IRON_NUGGET).pattern("I#I").pattern("###").pattern("I#I").unlockedBy(getHasName(HEART_CRYSTAL.get()), has(HEART_CRYSTAL.get())).save(consumer, getSaveLocation(HEART_LANTERN));
+        ShapedRecipeBuilder.shaped(HEART_CRYSTAL.get()).define('#', HEART_CRYSTAL_SHARD.get()).pattern("###").pattern("###").pattern("###").unlockedBy(getHasName(HEART_CRYSTAL_SHARD.get()), has(HEART_CRYSTAL_SHARD.get())).save(consumer, getSaveLocation(HEART_CRYSTAL));
+        ShapelessRecipeBuilder.shapeless(HEART_CRYSTAL_SHARD.get()).requires(HEART_CRYSTAL.get()).unlockedBy(getHasName(HEART_CRYSTAL.get()), has(HEART_CRYSTAL.get())).save(consumer, getSaveLocation(HEART_CRYSTAL_SHARD));
+        ShapelessRecipeBuilder.shapeless(HEART_BANNER_PATTERN.get()).requires(Items.PAPER).requires(HEART_CRYSTAL_SHARD.get()).unlockedBy(getHasName(HEART_CRYSTAL_SHARD.get()), has(HEART_CRYSTAL_SHARD.get())).save(consumer, getSaveLocation(HEART_BANNER_PATTERN));
     }
 
     private static ResourceLocation getSaveLocation(RegistryObject<? extends ItemLike> item) {

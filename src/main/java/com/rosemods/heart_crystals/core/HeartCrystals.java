@@ -8,11 +8,9 @@ import com.rosemods.heart_crystals.core.data.server.HCRecipeProvider;
 import com.rosemods.heart_crystals.core.data.server.modifiers.HCBiomeModifier;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBannerPatternTagProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
+import com.rosemods.heart_crystals.core.data.server.tags.HCPaintingVariantTagsProvider;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
-import com.rosemods.heart_crystals.core.registry.HCBannerPatterns;
-import com.rosemods.heart_crystals.core.registry.HCBlocks;
-import com.rosemods.heart_crystals.core.registry.HCFeatures;
-import com.rosemods.heart_crystals.core.registry.HCItems;
+import com.rosemods.heart_crystals.core.registry.*;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
@@ -40,6 +38,7 @@ public class HeartCrystals {
 
         REGISTRY_HELPER.register(bus);
         HCBannerPatterns.BANNER_PATTERNS.register(bus);
+        HCPaintingVariants.PAINTING_VARIANTS.register(bus);
         HCFeatures.FEATURES.register(bus);
         HCFeatures.Features.CONFIGURED_FEATURES.register(bus);
         HCFeatures.Placements.PLACED_FEATURES.register(bus);
@@ -75,6 +74,7 @@ public class HeartCrystals {
         gen.addProvider(server, new HCRecipeProvider(event));
         gen.addProvider(server, new HCBlockTagProvider(event));
         gen.addProvider(server, new HCBannerPatternTagProvider(event));
+        gen.addProvider(server, new HCPaintingVariantTagsProvider(event));
         gen.addProvider(server, HCBiomeModifier.register(event));
     }
 

@@ -1,6 +1,7 @@
 package com.rosemods.heart_crystals.common.level.gen.feature;
 
 import com.rosemods.heart_crystals.common.block.HeartCrystalBlock;
+import com.rosemods.heart_crystals.core.HCConfig;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.WorldGenLevel;
@@ -26,7 +27,7 @@ public class HeartCrystalFeature extends Feature<NoneFeatureConfiguration> {
                 for (int y = -4; y <= 4; ++y) {
                     BlockPos pos = origin.offset(x, y, z);
 
-                    if (pos.getY() < 30 && (level.getBlockState(pos).getMaterial().isReplaceable() || level.isWaterAt(pos)) && state.canSurvive(level, pos)) {
+                    if (pos.getY() < HCConfig.COMMON.maxYLevel.get() && (level.getBlockState(pos).getMaterial().isReplaceable() || level.isWaterAt(pos)) && state.canSurvive(level, pos)) {
                         level.setBlock(pos, state.setValue(HeartCrystalBlock.WATERLOGGED, level.getFluidState(pos).is(Fluids.WATER)), 2);
                         return true;
                     }

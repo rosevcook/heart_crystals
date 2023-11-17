@@ -57,14 +57,7 @@ public class HeartCrystals {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        // not a lambda so class gets not loaded server-side
-        //noinspection Convert2MethodRef
-        PACKET_HANDLER.registerMessage(0,
-                HCPlayerInfo.PlayerHealthInfoSync.class,
-                HCPlayerInfo.PlayerHealthInfoSync::buffer,
-                HCPlayerInfo.PlayerHealthInfoSync::new,
-                (msg, ctx) -> HCClientSync.receivePacket(msg, ctx)
-        );
+        registerMessage();
         DataUtil.addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
     }
 
@@ -87,6 +80,15 @@ public class HeartCrystals {
         gen.addProvider(server, new HCBannerPatternTagProvider(event));
         gen.addProvider(server, new HCPaintingVariantTagsProvider(event));
         gen.addProvider(server, HCBiomeModifier.register(event));
+    }
+
+    private static void registerMessage() {
+        PACKET_HANDLER.registerMessage(0,
+                HCPlayerInfo.PlayerHealthInfoSync.class,
+                HCPlayerInfo.PlayerHealthInfoSync::buffer,
+                HCPlayerInfo.PlayerHealthInfoSync::new,
+                (msg, ctx) -> HCClientSync.receivePacket(msg, ctx)
+        );
     }
 
 }

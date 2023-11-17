@@ -60,7 +60,7 @@ public class HeartLanternBlock extends Block implements EntityBlock, SimpleWater
         BlockPos blockpos = context.getClickedPos();
         FluidState fluidstate = context.getLevel().getFluidState(blockpos);
 
-        return this.defaultBlockState().setValue(WATERLOGGED, Boolean.valueOf(fluidstate.getType() == Fluids.WATER));
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
     }
 
     @Override

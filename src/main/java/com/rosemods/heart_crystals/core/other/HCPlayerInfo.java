@@ -77,20 +77,6 @@ public class HCPlayerInfo {
             buffer.writeNbt((CompoundTag) message.getHealthInfo().writeNBT());
         }
 
-        public static void handler(PlayerHealthInfoSync sync, Supplier<NetworkEvent.Context> contextSupplier) {
-            NetworkEvent.Context context = contextSupplier.get();
-
-            context.enqueueWork(() -> {
-                if (!context.getDirection().getReceptionSide().isServer() && Minecraft.getInstance().player != null) {
-                    PlayerHealthInfo info = getPlayerHealthInfo(Minecraft.getInstance().player);
-                    info.heartCount = sync.getHealthInfo().heartCount;
-                    info.healthSet = sync.getHealthInfo().healthSet;
-                }
-            });
-
-            context.setPacketHandled(true);
-        }
-
     }
 
     public static class PlayerHealthInfoProvider implements ICapabilitySerializable<Tag> {

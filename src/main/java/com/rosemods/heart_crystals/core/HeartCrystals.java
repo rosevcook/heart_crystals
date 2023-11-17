@@ -9,6 +9,7 @@ import com.rosemods.heart_crystals.core.data.server.modifiers.HCBiomeModifier;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBannerPatternTagProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCPaintingVariantTagsProvider;
+import com.rosemods.heart_crystals.core.other.HCClientSync;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
 import com.rosemods.heart_crystals.core.registry.HCBannerPatterns;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
@@ -28,6 +29,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
+
+import java.net.http.HttpClient;
 
 @Mod(HeartCrystals.MODID)
 public class HeartCrystals {
@@ -54,10 +57,15 @@ public class HeartCrystals {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        event.enqueueWork(() -> {
-            PACKET_HANDLER.registerMessage(0, HCPlayerInfo.PlayerHealthInfoSync.class, HCPlayerInfo.PlayerHealthInfoSync::buffer, HCPlayerInfo.PlayerHealthInfoSync::new, HCPlayerInfo.PlayerHealthInfoSync::handler);
-            DataUtil.addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
-        });
+        // not a lambda so class gets not loaded server-side
+        //noinspection Convert2MethodRef
+        PACKET_HANDLER.registerMessage(0,
+                HCPlayerInfo.PlayerHealthInfoSync.class,
+                HCPlayerInfo.PlayerHealthInfoSync::buffer,
+                HCPlayerInfo.PlayerHealthInfoSync::new,
+                (msg, ctx) -> HCClientSync.receivePacket(msg, ctx)
+        );
+        DataUtil.addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {

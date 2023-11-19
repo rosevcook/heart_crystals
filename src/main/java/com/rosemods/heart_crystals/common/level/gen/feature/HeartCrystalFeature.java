@@ -30,8 +30,11 @@ public class HeartCrystalFeature extends Feature<NoneFeatureConfiguration> {
             for (int z = 0; z <= 6; ++z)
                 for (int y = 0; y <= 6; ++y) {
                     BlockPos pos = origin.offset(x, y, z);
+                    BlockState newState = level.getBlockState(pos);
 
-                    if ((level.getBlockState(pos).getMaterial().isReplaceable() || level.isWaterAt(pos)) && !level.getFluidState(pos).is(Fluids.LAVA)) {
+                    if (newState.is(HCBlocks.HEART_CRYSTAL.get()))
+                        return false;
+                    else if ((newState.getMaterial().isReplaceable() || level.isWaterAt(pos)) && !level.getFluidState(pos).is(Fluids.LAVA)) {
                         airAmount++;
 
                         if (pos.getY() < HCConfig.COMMON.maxYLevel.get() && state.canSurvive(level, pos))

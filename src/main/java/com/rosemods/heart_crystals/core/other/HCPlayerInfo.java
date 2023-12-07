@@ -20,8 +20,7 @@ import net.minecraftforge.network.PacketDistributor;
 import java.util.function.Supplier;
 
 public class HCPlayerInfo {
-    public static final Capability<PlayerHealthInfo> HEALTH_INFO_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
-    });
+    public static final Capability<PlayerHealthInfo> HEALTH_INFO_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() { });
 
     public static PlayerHealthInfo getPlayerHealthInfo(Entity entity) {
         return entity.getCapability(HCPlayerInfo.HEALTH_INFO_CAPABILITY, null).orElse(new PlayerHealthInfo());

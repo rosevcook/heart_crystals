@@ -14,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.function.Consumer;
 
 import static com.rosemods.heart_crystals.core.registry.HCBlocks.*;
-import static com.rosemods.heart_crystals.core.registry.HCItems.HEART_BANNER_PATTERN;
+import static com.rosemods.heart_crystals.core.registry.HCItems.*;
 
 public class HCRecipeProvider extends RecipeProvider {
     public HCRecipeProvider(GatherDataEvent event) {
@@ -23,7 +23,7 @@ public class HCRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
-        ShapedRecipeBuilder.shaped(HEART_LANTERN.get()).define('#', HEART_CRYSTAL_SHARD.get()).define('I', Items.IRON_NUGGET).pattern("I#I").pattern("###").pattern("I#I").unlockedBy(getHasName(HEART_CRYSTAL.get()), has(HEART_CRYSTAL.get())).save(consumer, getSaveLocation(HEART_LANTERN));
+        ShapedRecipeBuilder.shaped(HEART_LANTERN.get()).define('#', HEART_CRYSTAL.get()).define('I', Items.IRON_NUGGET).pattern("III").pattern("I#I").pattern("III").unlockedBy(getHasName(HEART_CRYSTAL.get()), has(HEART_CRYSTAL.get())).save(consumer, getSaveLocation(HEART_LANTERN));
         ShapedRecipeBuilder.shaped(HEART_CRYSTAL.get()).define('#', HEART_CRYSTAL_SHARD.get()).pattern("###").pattern("###").pattern("###").unlockedBy(getHasName(HEART_CRYSTAL_SHARD.get()), has(HEART_CRYSTAL_SHARD.get())).save(consumer, getSaveLocation(HEART_CRYSTAL));
         ShapelessRecipeBuilder.shapeless(HEART_CRYSTAL_SHARD.get(), 9).requires(HEART_CRYSTAL.get()).unlockedBy(getHasName(HEART_CRYSTAL.get()), has(HEART_CRYSTAL.get())).save(consumer, getSaveLocation(HEART_CRYSTAL_SHARD));
         ShapelessRecipeBuilder.shapeless(HEART_BANNER_PATTERN.get()).requires(Items.PAPER).requires(HEART_CRYSTAL_SHARD.get()).unlockedBy(getHasName(HEART_CRYSTAL_SHARD.get()), has(HEART_CRYSTAL_SHARD.get())).save(consumer, getSaveLocation(HEART_BANNER_PATTERN));

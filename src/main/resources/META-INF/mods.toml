@@ -5,7 +5,7 @@ license = "All Rights Reserved"
 
 [[mods]]
     modId = "heart_crystals"
-    version = "1.0.0"
+    version = "1.0.1"
     displayName = "Heart Crystals"
     logoFile = "logo.png"
     itemIcon = "heart_crystals:heart_crystal"

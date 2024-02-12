@@ -11,7 +11,7 @@ license = "All Rights Reserved"
     itemIcon = "heart_crystals:heart_crystal"
     displayURL = "https://www.curseforge.com/minecraft/mc-mods/heart-crystals"
     authors = "Rose"
-    description = '''bah'''
+    description = '''Find Heart Crystals underground to permanently increase your health!'''
 
 [[dependencies.heart_crystals]]
     modId = "forge"

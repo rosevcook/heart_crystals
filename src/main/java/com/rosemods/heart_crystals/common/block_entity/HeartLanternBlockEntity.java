@@ -20,7 +20,8 @@ public class HeartLanternBlockEntity extends BlockEntity implements BlockEntityT
     @Override
     public void tick(Level level, BlockPos pos, BlockState state, HeartLanternBlockEntity blockEntity) {
         for (LivingEntity entity : level.getEntitiesOfClass(LivingEntity.class, new AABB(pos).inflate(HCConfig.COMMON.regenRange.get())))
-            entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 20, 0, true, true));
+            if (!entity.hasEffect(MobEffects.REGENERATION))
+                entity.addEffect(new MobEffectInstance(MobEffects.REGENERATION, 100, 0, true, true));
     }
 
 }

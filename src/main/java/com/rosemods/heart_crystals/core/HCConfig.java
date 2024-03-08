@@ -22,7 +22,7 @@ public class HCConfig {
             this.regenRange = builder.comment("The range in blocks that heart lanterns can give the regeneration effect; default: 2").defineInRange("Heart Lantern Regen Range", 2, 1, 10);
             builder.pop();
             builder.comment("Heart Crystals World Gen").push("world-gen");
-            this.maxYLevel = builder.comment("Max Y Level that Heart Crystals can spawn at; default: 30").defineInRange("Maximum Hearts", 30, -60, 60);
+            this.maxYLevel = builder.comment("Max Y Level that Heart Crystals can spawn at; default: 30").defineInRange("Max Y Level", 30, -60, 60);
             builder.pop();
         }
 

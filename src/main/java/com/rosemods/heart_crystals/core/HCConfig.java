@@ -4,7 +4,7 @@ import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.fml.common.Mod;
 import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber(modid = HeartCrystals.MODID)
+@Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID)
 public class HCConfig {
     public static final Common COMMON;
     public static final ForgeConfigSpec COMMON_SPEC;

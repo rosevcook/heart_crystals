@@ -13,7 +13,7 @@ import net.minecraftforge.event.RegisterCommandsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 
-@Mod.EventBusSubscriber(modid = HeartCrystals.MODID)
+@Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID)
 public class HCCommands {
     @SubscribeEvent
     public static void registerCommands(RegisterCommandsEvent event) {
@@ -36,7 +36,7 @@ public class HCCommands {
     }
 
     private static LiteralArgumentBuilder<CommandSourceStack> createCommand(String name, Command<CommandSourceStack> command) {
-        return Commands.literal(HeartCrystals.MODID).then(Commands.literal(name).requires(stack -> stack.hasPermission(1)).executes(command));
+        return Commands.literal(HeartCrystals.MOD_ID).then(Commands.literal(name).requires(stack -> stack.hasPermission(1)).executes(command));
     }
 
 }

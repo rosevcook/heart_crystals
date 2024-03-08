@@ -16,19 +16,19 @@ import net.minecraftforge.registries.RegistryObject;
 import java.util.List;
 
 public final class HCFeatures {
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, HeartCrystals.MODID);
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, HeartCrystals.MOD_ID);
 
     public static final RegistryObject<Feature<NoneFeatureConfiguration>> HEART_CRYSTAL_FEATURE = FEATURES.register("heart_crystal", HeartCrystalFeature::new);
 
     public static final class Features {
-        public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, HeartCrystals.MODID);
+        public static final DeferredRegister<ConfiguredFeature<?, ?>> CONFIGURED_FEATURES = DeferredRegister.create(Registry.CONFIGURED_FEATURE_REGISTRY, HeartCrystals.MOD_ID);
 
         public static final RegistryObject<ConfiguredFeature<?, ?>> HEART_CRYSTAL = CONFIGURED_FEATURES.register("heart_crystal", () -> new ConfiguredFeature<>(HEART_CRYSTAL_FEATURE.get(), NoneFeatureConfiguration.NONE));
 
     }
 
     public static final class Placements {
-        public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, HeartCrystals.MODID);
+        public static final DeferredRegister<PlacedFeature> PLACED_FEATURES = DeferredRegister.create(Registry.PLACED_FEATURE_REGISTRY, HeartCrystals.MOD_ID);
 
         public static final RegistryObject<PlacedFeature> HEART_CRYSTAL = register("heart_crystal", Features.HEART_CRYSTAL, CountPlacement.of(3), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
 

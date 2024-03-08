@@ -13,7 +13,7 @@ import static com.rosemods.heart_crystals.core.registry.HCItems.*;
 
 public class HCModelProvider extends BlockStateProvider {
     public HCModelProvider(GatherDataEvent event) {
-        super(event.getGenerator(), HeartCrystals.MODID, event.getExistingFileHelper());
+        super(event.getGenerator(), HeartCrystals.MOD_ID, event.getExistingFileHelper());
     }
 
     @Override
@@ -27,7 +27,7 @@ public class HCModelProvider extends BlockStateProvider {
         //blocks
         this.simpleBlock(HEART_CRYSTAL.get(), this.models().cross(getItemName(HEART_CRYSTAL), this.blockTexture(HEART_CRYSTAL.get())).renderType("cutout"));
         this.directionalBlock(HEART_CRYSTAL_SHARD.get(), this.models().cross(getItemName(HEART_CRYSTAL_SHARD), this.blockTexture(HEART_CRYSTAL_SHARD.get())).renderType("cutout"));
-        this.simpleBlock(HEART_LANTERN.get(), this.models().getExistingFile(new ResourceLocation(HeartCrystals.MODID, "block/heart_lantern")));
+        this.simpleBlock(HEART_LANTERN.get(), this.models().getExistingFile(new ResourceLocation(HeartCrystals.MOD_ID, "block/heart_lantern")));
     }
 
     private void generatedItem(RegistryObject<? extends ItemLike> item) {

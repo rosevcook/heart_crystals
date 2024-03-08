@@ -33,7 +33,7 @@ public final class HCBiomeModifier {
     public static JsonCodecProvider<BiomeModifier> register(GatherDataEvent event) {
         addFeature("heart_crystal", BiomeTags.IS_OVERWORLD, GenerationStep.Decoration.UNDERGROUND_ORES, HCFeatures.Placements.HEART_CRYSTAL);
 
-        return JsonCodecProvider.forDatapackRegistry(event.getGenerator(), event.getExistingFileHelper(), HeartCrystals.MODID, RegistryOps.create(JsonOps.INSTANCE, access), ForgeRegistries.Keys.BIOME_MODIFIERS, modifiers);
+        return JsonCodecProvider.forDatapackRegistry(event.getGenerator(), event.getExistingFileHelper(), HeartCrystals.MOD_ID, RegistryOps.create(JsonOps.INSTANCE, access), ForgeRegistries.Keys.BIOME_MODIFIERS, modifiers);
     }
 
     @SafeVarargs

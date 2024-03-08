@@ -17,7 +17,7 @@ import static com.rosemods.heart_crystals.core.registry.HCItems.HEART_BANNER_PAT
 
 public class HCLanguageProvider extends LanguageProvider {
     public HCLanguageProvider(GatherDataEvent event) {
-        super(event.getGenerator(), HeartCrystals.MODID, "en_us");
+        super(event.getGenerator(), HeartCrystals.MOD_ID, "en_us");
     }
 
     @Override
@@ -39,7 +39,7 @@ public class HCLanguageProvider extends LanguageProvider {
         this.addDescription(item, desc);
 
         for (DyeColor dye : DyeColor.values())
-            this.add("block.minecraft.banner." + HeartCrystals.MODID + "." + name + "." + dye.getName(),
+            this.add("block.minecraft.banner." + HeartCrystals.MOD_ID + "." + name + "." + dye.getName(),
                     StringUtils.capitaliseAllWords(dye.getName().replace('_', ' ')) + " " + desc);
     }
 

@@ -32,11 +32,11 @@ import net.minecraftforge.network.simple.SimpleChannel;
 
 import java.net.http.HttpClient;
 
-@Mod(HeartCrystals.MODID)
+@Mod(HeartCrystals.MOD_ID)
 public class HeartCrystals {
-    public static final String MODID = "heart_crystals";
-    public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MODID);
-    public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(REGISTRY_HELPER.prefix(MODID), () -> "1", "1"::equals, "1"::equals);
+    public static final String MOD_ID = "heart_crystals";
+    public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
+    public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(REGISTRY_HELPER.prefix(MOD_ID), () -> "1", "1"::equals, "1"::equals);
 
     public HeartCrystals() {
         final IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();

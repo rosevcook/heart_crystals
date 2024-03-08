@@ -6,7 +6,7 @@ import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
-@Mod.EventBusSubscriber(modid = HeartCrystals.MODID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HCSoundEvents {
     public static final SoundSubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getSoundSubHelper();
 

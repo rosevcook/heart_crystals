@@ -8,7 +8,7 @@ import net.minecraftforge.data.event.GatherDataEvent;
 public class HCSoundProvider extends SoundDefinitionsProvider {
 
     public HCSoundProvider(GatherDataEvent event) {
-        super(event.getGenerator(), HeartCrystals.MODID, event.getExistingFileHelper());
+        super(event.getGenerator(), HeartCrystals.MOD_ID, event.getExistingFileHelper());
     }
 
     @Override

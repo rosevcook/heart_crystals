@@ -41,7 +41,7 @@ public class HCLootTableProvider extends LootTableProvider {
 
     private static <T> Iterable<T> getContent(IForgeRegistry<T> entry) {
         return entry.getValues().stream().filter(i -> entry.getKey(i) != null
-                && HeartCrystals.MODID.equals(entry.getKey(i).getNamespace())).collect(Collectors.toSet());
+                && HeartCrystals.MOD_ID.equals(entry.getKey(i).getNamespace())).collect(Collectors.toSet());
     }
 
     private static class Blocks extends BlockLoot {

@@ -5,7 +5,7 @@ license = "All Rights Reserved"
 
 [[mods]]
     modId = "heart_crystals"
-    version = "1.0.2"
+    version = "2.0.0"
     displayName = "Heart Crystals"
     logoFile = "logo.png"
     itemIcon = "heart_crystals:heart_crystal"
@@ -16,21 +16,21 @@ license = "All Rights Reserved"
 [[dependencies.heart_crystals]]
     modId = "forge"
     mandatory = true
-    versionRange = "[43.2.0,)"
+    versionRange = "[47.1.0,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.heart_crystals]]
     modId = "minecraft"
     mandatory = true
-    versionRange = "[1.19.2,)"
+    versionRange = "[1.20.1,)"
     ordering = "NONE"
     side = "BOTH"
 
 [[dependencies.heart_crystals]]
     modId = "blueprint"
     mandatory = true
-    versionRange = "[6.1.2,)"
+    versionRange = "[7.0.0,)"
     ordering = "BEFORE"
     side = "BOTH"
 

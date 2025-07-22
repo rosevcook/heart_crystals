@@ -2,6 +2,8 @@ package com.rosemods.heart_crystals.core.data.client;
 
 import com.google.common.collect.Lists;
 import com.rosemods.heart_crystals.core.HeartCrystals;
+import com.rosemods.heart_crystals.core.registry.HCPaintingVariants;
+import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.ItemLike;
@@ -23,17 +25,20 @@ public class HCLanguageProvider extends LanguageProvider {
     private final List<String> keys = Lists.newArrayList();
 
     public HCLanguageProvider(GatherDataEvent event) {
-        super(event.getGenerator(), HeartCrystals.MOD_ID, "en_us");
+        super(event.getGenerator().getPackOutput(), HeartCrystals.MOD_ID, "en_us");
     }
 
     @Override
     protected void addTranslations() {
-        //items
+        // items
         this.translateBannerPattern(HEART_BANNER_PATTERN, "heart");
 
-        //blocks
+        // blocks
         this.addDescription(HEART_CRYSTAL, "+1 Permanent Heart (Max %s)");
         this.add(HEART_CRYSTAL.get().getDescriptionId() + ".maximum", "Cannot use heart crystal; currently at maximum hearts!");
+
+        // paintings
+        this.translatePainting(HCPaintingVariants.HEARTBEAT, "Yapetto");
 
         // auto translation
         this.translateRegistry(ForgeRegistries.BLOCKS, Block::getDescriptionId);
@@ -50,6 +55,12 @@ public class HCLanguageProvider extends LanguageProvider {
             super.add(key, value);
             this.keys.add(key);
         }
+    }
+
+    private void translatePainting(RegistryObject<PaintingVariant> painting, String author) {
+        String name = ForgeRegistries.PAINTING_VARIANTS.getKey(painting.get()).getPath();
+        this.add("painting." + HeartCrystals.MOD_ID + "." + name + ".title", toUpper(name));
+        this.add("painting." + HeartCrystals.MOD_ID + "." + name + ".author", author);
     }
 
     private void translateBannerPattern(RegistryObject<? extends Item> item, String name) {

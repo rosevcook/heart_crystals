@@ -5,23 +5,22 @@ import com.rosemods.heart_crystals.core.data.client.HCModelProvider;
 import com.rosemods.heart_crystals.core.data.client.HCSoundProvider;
 import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
 import com.rosemods.heart_crystals.core.data.server.HCRecipeProvider;
-import com.rosemods.heart_crystals.core.data.server.modifiers.HCBiomeModifier;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBannerPatternTagProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
+import com.rosemods.heart_crystals.core.data.server.tags.HCDatapackBuiltinEntriesProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.HCPaintingVariantTagsProvider;
 import com.rosemods.heart_crystals.core.other.HCClientSync;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
-import com.rosemods.heart_crystals.core.registry.HCBannerPatterns;
-import com.rosemods.heart_crystals.core.registry.HCBlocks;
-import com.rosemods.heart_crystals.core.registry.HCFeatures;
-import com.rosemods.heart_crystals.core.registry.HCPaintingVariants;
+import com.rosemods.heart_crystals.core.registry.*;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -29,8 +28,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
-
-import java.net.http.HttpClient;
 
 @Mod(HeartCrystals.MOD_ID)
 public class HeartCrystals {
@@ -46,12 +43,16 @@ public class HeartCrystals {
         HCBannerPatterns.BANNER_PATTERNS.register(bus);
         HCPaintingVariants.PAINTING_VARIANTS.register(bus);
         HCFeatures.FEATURES.register(bus);
-        HCFeatures.Features.CONFIGURED_FEATURES.register(bus);
-        HCFeatures.Placements.PLACED_FEATURES.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::registerCapabilities);
         bus.addListener(this::dataSetup);
+
+
+        DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
+            HCBlocks.setupTabEditors();
+            HCItems.setupTabEditors();
+        });
 
         context.registerConfig(ModConfig.Type.COMMON, HCConfig.COMMON_SPEC);
     }
@@ -79,7 +80,7 @@ public class HeartCrystals {
         gen.addProvider(server, new HCBlockTagProvider(event));
         gen.addProvider(server, new HCBannerPatternTagProvider(event));
         gen.addProvider(server, new HCPaintingVariantTagsProvider(event));
-        gen.addProvider(server, HCBiomeModifier.register(event));
+        gen.addProvider(server, new HCDatapackBuiltinEntriesProvider(event));
     }
 
     private static void registerMessage() {

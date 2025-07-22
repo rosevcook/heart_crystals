@@ -73,7 +73,7 @@ public class HCEvents {
     }
 
     public static void setMaxHealthAttribute(int health, Player player) {
-        if (!player.level.isClientSide() && player.getServer() != null) {
+        if (!player.level().isClientSide() && player.getServer() != null) {
             AttributeInstance attribute = player.getAttributes().getInstance(Attributes.MAX_HEALTH);
 
             if (attribute != null)
@@ -83,7 +83,7 @@ public class HCEvents {
     }
 
     private static void syncPlayerInfo(Player player) {
-        if (player != null && !player.level.isClientSide())
+        if (player != null && !player.level().isClientSide())
             HCPlayerInfo.getPlayerHealthInfo(player).syncHealthInfo(player);
     }
 

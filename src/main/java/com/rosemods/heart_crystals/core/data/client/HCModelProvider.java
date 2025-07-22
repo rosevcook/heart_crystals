@@ -13,7 +13,7 @@ import static com.rosemods.heart_crystals.core.registry.HCItems.*;
 
 public class HCModelProvider extends BlockStateProvider {
     public HCModelProvider(GatherDataEvent event) {
-        super(event.getGenerator(), HeartCrystals.MOD_ID, event.getExistingFileHelper());
+        super(event.getGenerator().getPackOutput(), HeartCrystals.MOD_ID, event.getExistingFileHelper());
     }
 
     @Override

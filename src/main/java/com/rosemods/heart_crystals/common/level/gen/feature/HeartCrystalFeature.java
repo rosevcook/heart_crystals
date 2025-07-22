@@ -34,7 +34,7 @@ public class HeartCrystalFeature extends Feature<NoneFeatureConfiguration> {
 
                     if (newState.is(HCBlocks.HEART_CRYSTAL.get()))
                         return false;
-                    else if ((newState.getMaterial().isReplaceable() || level.isWaterAt(pos)) && !level.getFluidState(pos).is(Fluids.LAVA)) {
+                    else if ((newState.canBeReplaced() || level.isWaterAt(pos)) && !level.getFluidState(pos).is(Fluids.LAVA)) {
                         airAmount++;
 
                         if (pos.getY() < HCConfig.COMMON.maxYLevel.get() && state.canSurvive(level, pos))

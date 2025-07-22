@@ -21,5 +21,7 @@
   "block.minecraft.banner.heart_crystals.heart.white": "White Heart",
   "block.minecraft.banner.heart_crystals.heart.yellow": "Yellow Heart",
   "item.heart_crystals.heart_banner_pattern": "Banner Pattern",
-  "item.heart_crystals.heart_banner_pattern.desc": "Heart"
+  "item.heart_crystals.heart_banner_pattern.desc": "Heart",
+  "painting.heart_crystals.heartbeat.author": "Yapetto",
+  "painting.heart_crystals.heartbeat.title": "Heartbeat"
 }

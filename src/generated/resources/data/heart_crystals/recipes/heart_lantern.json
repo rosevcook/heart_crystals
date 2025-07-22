@@ -1,5 +1,6 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
   "key": {
     "#": {
       "item": "heart_crystals:heart_crystal"
@@ -15,5 +16,6 @@
   ],
   "result": {
     "item": "heart_crystals:heart_lantern"
-  }
+  },
+  "show_notification": true
 }

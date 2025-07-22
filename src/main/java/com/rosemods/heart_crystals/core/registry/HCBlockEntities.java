@@ -1,5 +1,6 @@
 package com.rosemods.heart_crystals.core.registry;
 
+import com.rosemods.heart_crystals.common.block.HeartCrystalBlock;
 import com.rosemods.heart_crystals.common.block.HeartLanternBlock;
 import com.rosemods.heart_crystals.common.block_entity.HeartLanternBlockEntity;
 import com.rosemods.heart_crystals.core.HeartCrystals;
@@ -8,10 +9,12 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.registries.RegistryObject;
 
+import java.util.Set;
+
 @Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HCBlockEntities {
     public static final BlockEntitySubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getBlockEntitySubHelper();
 
-    public static final RegistryObject<BlockEntityType<HeartLanternBlockEntity>> HEART_LANTERN = HELPER.createBlockEntity("heart_lantern", HeartLanternBlockEntity::new, () -> BlockEntitySubRegistryHelper.collectBlocks(HeartLanternBlock.class));
+    public static final RegistryObject<BlockEntityType<HeartLanternBlockEntity>> HEART_LANTERN = HELPER.createBlockEntity("heart_lantern", HeartLanternBlockEntity::new, () -> Set.of(HCBlocks.HEART_LANTERN.get()));
 
 }

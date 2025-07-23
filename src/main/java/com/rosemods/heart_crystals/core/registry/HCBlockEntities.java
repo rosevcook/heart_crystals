@@ -1,7 +1,5 @@
 package com.rosemods.heart_crystals.core.registry;
 
-import com.rosemods.heart_crystals.common.block.HeartCrystalBlock;
-import com.rosemods.heart_crystals.common.block.HeartLanternBlock;
 import com.rosemods.heart_crystals.common.block_entity.HeartLanternBlockEntity;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import com.teamabnormals.blueprint.core.util.registry.BlockEntitySubRegistryHelper;

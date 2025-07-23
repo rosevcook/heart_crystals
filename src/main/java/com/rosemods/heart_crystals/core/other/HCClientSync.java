@@ -13,7 +13,7 @@ public final class HCClientSync {
 
         context.enqueueWork(() -> {
             if (context.getDirection().getReceptionSide().isClient()) {
-                Player player =  Minecraft.getInstance().player;
+                Player player = Minecraft.getInstance().player;
 
                 if (player != null) {
                     HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);

@@ -1,7 +1,6 @@
 package com.rosemods.heart_crystals.core.registry;
 
 import com.rosemods.heart_crystals.core.HeartCrystals;
-import net.minecraft.core.Registry;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.world.level.block.entity.BannerPattern;
 import net.minecraftforge.registries.DeferredRegister;

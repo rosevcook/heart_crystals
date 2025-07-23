@@ -1,0 +1,9 @@
+{
+  "asset_name": "heart_crystals_heart_crystal_shard",
+  "description": {
+    "color": "#FF5C73",
+    "translate": "trim_material.heart_crystals.heart_crystal_shard"
+  },
+  "ingredient": "heart_crystals:heart_crystal_shard",
+  "item_model_index": -1.0
+}

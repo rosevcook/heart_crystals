@@ -2,10 +2,15 @@ package com.rosemods.heart_crystals.core.data.client;
 
 import com.google.common.collect.Lists;
 import com.rosemods.heart_crystals.core.HeartCrystals;
+import com.rosemods.heart_crystals.core.other.HCTrimMaterials;
+import com.rosemods.heart_crystals.core.registry.HCBlocks;
+import com.rosemods.heart_crystals.core.registry.HCItems;
 import com.rosemods.heart_crystals.core.registry.HCPaintingVariants;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.DyeColor;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -18,8 +23,6 @@ import org.codehaus.plexus.util.StringUtils;
 import java.util.List;
 import java.util.function.Function;
 
-import static com.rosemods.heart_crystals.core.registry.HCBlocks.*;
-import static com.rosemods.heart_crystals.core.registry.HCItems.*;
 
 public class HCLanguageProvider extends LanguageProvider {
     private final List<String> keys = Lists.newArrayList();
@@ -31,14 +34,17 @@ public class HCLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         // items
-        this.translateBannerPattern(HEART_BANNER_PATTERN, "heart");
+        this.translateBannerPattern(HCItems.HEART_BANNER_PATTERN, "heart");
 
         // blocks
-        this.addDescription(HEART_CRYSTAL, "+1 Permanent Heart (Max %s)");
-        this.add(HEART_CRYSTAL.get().getDescriptionId() + ".maximum", "Cannot use heart crystal; currently at maximum hearts!");
+        this.addDescription(HCBlocks.HEART_CRYSTAL, "+1 Permanent Heart (Max %s)");
+        this.add(HCBlocks.HEART_CRYSTAL.get().getDescriptionId() + ".maximum", "Cannot use heart crystal; currently at maximum hearts!");
 
         // paintings
         this.translatePainting(HCPaintingVariants.HEARTBEAT, "Yapetto");
+
+        // trim materials
+        this.translateTrimMaterial(HCTrimMaterials.HEART_CRYSTAL_SHARD, "Heart Crystal Material");
 
         // auto translation
         this.translateRegistry(ForgeRegistries.BLOCKS, Block::getDescriptionId);
@@ -47,6 +53,10 @@ public class HCLanguageProvider extends LanguageProvider {
     private <T> void translateRegistry(IForgeRegistry<T> registry, Function<T, String> toString) {
         for (RegistryObject<T> object : HeartCrystals.REGISTRY_HELPER.getSubHelper(registry).getDeferredRegister().getEntries())
             this.add(toString.apply(object.get()), toUpper(registry, object));
+    }
+
+    private void translateTrimMaterial(ResourceKey<TrimMaterial> material, String name) {
+        this.add("trim_material." + material.location().toString().replace(':', '.'), name);
     }
 
     @Override

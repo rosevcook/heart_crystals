@@ -7,10 +7,7 @@ import com.rosemods.heart_crystals.core.data.client.HCSpriteSourceProvider;
 import com.rosemods.heart_crystals.core.data.server.HCDatapackBuiltinEntriesProvider;
 import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
 import com.rosemods.heart_crystals.core.data.server.HCRecipeProvider;
-import com.rosemods.heart_crystals.core.data.server.tags.HCBannerPatternTagProvider;
-import com.rosemods.heart_crystals.core.data.server.tags.HCBlockTagProvider;
-import com.rosemods.heart_crystals.core.data.server.tags.HCItemTagProvider;
-import com.rosemods.heart_crystals.core.data.server.tags.HCPaintingVariantTagsProvider;
+import com.rosemods.heart_crystals.core.data.server.tags.*;
 import com.rosemods.heart_crystals.core.other.HCClientSync;
 import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
 import com.rosemods.heart_crystals.core.registry.*;
@@ -78,14 +75,17 @@ public class HeartCrystals {
         gen.addProvider(client, new HCSoundProvider(event));
         gen.addProvider(client, new HCSpriteSourceProvider(event));
 
-        HCBlockTagProvider blockTags;
         gen.addProvider(server, new HCLootTableProvider(event));
         gen.addProvider(server, new HCRecipeProvider(event));
-        gen.addProvider(server, new HCDatapackBuiltinEntriesProvider(event));
+
+        HCBlockTagProvider blockTags;
+        HCDatapackBuiltinEntriesProvider dataPack;
+        gen.addProvider(server, dataPack = new HCDatapackBuiltinEntriesProvider(event));
         gen.addProvider(server, blockTags = new HCBlockTagProvider(event));
-        gen.addProvider(server, new HCItemTagProvider(event, blockTags));
-        gen.addProvider(server, new HCBannerPatternTagProvider(event));
-        gen.addProvider(server, new HCPaintingVariantTagsProvider(event));
+        gen.addProvider(server, new HCItemTagProvider(event, blockTags, dataPack));
+        gen.addProvider(server, new HCBannerPatternTagProvider(event, dataPack));
+        gen.addProvider(server, new HCPaintingVariantTagsProvider(event, dataPack));
+        gen.addProvider(server, new HCTrimMaterialTagsProvider(event, dataPack));
     }
 
     private static void registerMessage() {

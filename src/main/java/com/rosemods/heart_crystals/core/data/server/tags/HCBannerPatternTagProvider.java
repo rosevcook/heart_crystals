@@ -1,6 +1,7 @@
 package com.rosemods.heart_crystals.core.data.server.tags;
 
 import com.rosemods.heart_crystals.core.HeartCrystals;
+import com.rosemods.heart_crystals.core.data.server.HCDatapackBuiltinEntriesProvider;
 import com.rosemods.heart_crystals.core.other.tags.HCBannerPatternTags;
 import com.rosemods.heart_crystals.core.registry.HCBannerPatterns;
 import net.minecraft.core.HolderLookup;
@@ -8,8 +9,8 @@ import net.minecraft.data.tags.BannerPatternTagsProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 
 public class HCBannerPatternTagProvider extends BannerPatternTagsProvider {
-    public HCBannerPatternTagProvider(GatherDataEvent event) {
-        super(event.getGenerator().getPackOutput(), event.getLookupProvider(), HeartCrystals.MOD_ID, event.getExistingFileHelper());
+    public HCBannerPatternTagProvider(GatherDataEvent event, HCDatapackBuiltinEntriesProvider dataPack) {
+        super(event.getGenerator().getPackOutput(), dataPack.getRegistryProvider(), HeartCrystals.MOD_ID, event.getExistingFileHelper());
     }
 
     @Override

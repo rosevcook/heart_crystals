@@ -1,0 +1,18 @@
+{
+  "sources": [
+    {
+      "type": "blueprint:paletted_permutations",
+      "palette_key": "clayworks:entity/decorated_pot_trim_palettes/trim_palette",
+      "permutations": {
+        "heart_crystals_heart_crystal_shard": "heart_crystals:entity/decorated_pot_trim_palettes/heart_crystal_shard"
+      },
+      "sources": [
+        {
+          "type": "minecraft:directory",
+          "prefix": "entity/decorated_pot_trim_patterns/",
+          "source": "entity/decorated_pot_trim_patterns"
+        }
+      ]
+    }
+  ]
+}

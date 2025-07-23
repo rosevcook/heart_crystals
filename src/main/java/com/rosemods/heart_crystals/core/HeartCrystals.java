@@ -47,7 +47,6 @@ public class HeartCrystals {
         bus.addListener(this::registerCapabilities);
         bus.addListener(this::dataSetup);
 
-
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT, () -> () -> {
             HCBlocks.setupTabEditors();
             HCItems.setupTabEditors();

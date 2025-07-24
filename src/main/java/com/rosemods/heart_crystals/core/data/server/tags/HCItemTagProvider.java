@@ -3,6 +3,7 @@ package com.rosemods.heart_crystals.core.data.server.tags;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import com.rosemods.heart_crystals.core.data.server.HCDatapackBuiltinEntriesProvider;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
+import com.rosemods.heart_crystals.core.registry.HCItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
@@ -18,6 +19,7 @@ public class HCItemTagProvider extends ItemTagsProvider {
     protected void addTags(HolderLookup.Provider provider) {
         this.tag(ItemTags.TRIM_MATERIALS).add(HCBlocks.HEART_CRYSTAL_SHARD.get().asItem());
         this.tag(Tags.Items.GEMS).add(HCBlocks.HEART_CRYSTAL_SHARD.get().asItem());
+        this.tag(ItemTags.ARROWS).add(HCItems.CUPIDS_ARROW.get());
     }
 
 }

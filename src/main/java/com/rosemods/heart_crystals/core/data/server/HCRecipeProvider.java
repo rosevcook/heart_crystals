@@ -24,6 +24,8 @@ public class HCRecipeProvider extends RecipeProvider {
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, HEART_CRYSTAL.get()).define('#', HEART_CRYSTAL_SHARD.get()).pattern("###").pattern("###").pattern("###").unlockedBy(getHasName(HEART_CRYSTAL_SHARD.get()), has(HEART_CRYSTAL_SHARD.get())).save(consumer, getSaveLocation(HEART_CRYSTAL));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, HEART_CRYSTAL_SHARD.get(), 9).requires(HEART_CRYSTAL.get()).unlockedBy(getHasName(HEART_CRYSTAL.get()), has(HEART_CRYSTAL.get())).save(consumer, getSaveLocation(HEART_CRYSTAL_SHARD));
         ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, HEART_BANNER_PATTERN.get()).requires(Items.PAPER).requires(HEART_CRYSTAL_SHARD.get()).unlockedBy(getHasName(HEART_CRYSTAL_SHARD.get()), has(HEART_CRYSTAL_SHARD.get())).save(consumer, getSaveLocation(HEART_BANNER_PATTERN));
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, CUPIDS_ARROW.get(), 8).define('#', HEART_CRYSTAL_SHARD.get()).define('S', Items.STICK).define('F', Items.FEATHER).pattern("#").pattern("S").pattern("F").unlockedBy(getHasName(HEART_CRYSTAL_SHARD.get()), has(HEART_CRYSTAL_SHARD.get())).save(consumer, getSaveLocation(CUPIDS_ARROW));
+
     }
 
     private static ResourceLocation getSaveLocation(RegistryObject<? extends ItemLike> item) {

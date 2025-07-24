@@ -1,9 +1,6 @@
 package com.rosemods.heart_crystals.core;
 
-import com.rosemods.heart_crystals.core.data.client.HCLanguageProvider;
-import com.rosemods.heart_crystals.core.data.client.HCModelProvider;
-import com.rosemods.heart_crystals.core.data.client.HCSoundProvider;
-import com.rosemods.heart_crystals.core.data.client.HCSpriteSourceProvider;
+import com.rosemods.heart_crystals.core.data.client.*;
 import com.rosemods.heart_crystals.core.data.server.HCDatapackBuiltinEntriesProvider;
 import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
 import com.rosemods.heart_crystals.core.data.server.HCRecipeProvider;
@@ -23,6 +20,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
@@ -42,8 +40,10 @@ public class HeartCrystals {
         HCBannerPatterns.BANNER_PATTERNS.register(bus);
         HCPaintingVariants.PAINTING_VARIANTS.register(bus);
         HCFeatures.FEATURES.register(bus);
+        HCParticleTypes.PARTICLE_TYPES.register(bus);
 
         bus.addListener(this::commonSetup);
+        bus.addListener(this::clientSetup);
         bus.addListener(this::registerCapabilities);
         bus.addListener(this::dataSetup);
 
@@ -60,6 +60,10 @@ public class HeartCrystals {
         DataUtil.addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
     }
 
+    private void clientSetup(FMLClientSetupEvent event) {
+        event.enqueueWork(HCEntityTypes::registerClient);
+    }
+
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
         event.register(HCPlayerInfo.PlayerHealthInfo.class);
     }
@@ -73,6 +77,7 @@ public class HeartCrystals {
         gen.addProvider(client, new HCModelProvider(event));
         gen.addProvider(client, new HCSoundProvider(event));
         gen.addProvider(client, new HCSpriteSourceProvider(event));
+        gen.addProvider(client, new HCParticleProvider(event));
 
         gen.addProvider(server, new HCLootTableProvider(event));
         gen.addProvider(server, new HCRecipeProvider(event));

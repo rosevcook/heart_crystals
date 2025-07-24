@@ -23,6 +23,7 @@ public class HCModelProvider extends BlockStateProvider {
         this.generatedItem(HEART_CRYSTAL_SHARD);
         this.generatedItem(HEART_LANTERN);
         this.generatedItem(HEART_BANNER_PATTERN);
+        this.generatedItem(CUPIDS_ARROW);
 
         //blocks
         this.simpleBlock(HEART_CRYSTAL.get(), this.models().cross(getItemName(HEART_CRYSTAL), this.blockTexture(HEART_CRYSTAL.get())).renderType("cutout"));

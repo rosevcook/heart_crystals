@@ -5,6 +5,7 @@
   "minVersion": "0.8",
   "refmap": "heart_crystals.refmap.json",
   "mixins": [
+    "AbstractArrowMixin"
   ],
   "injectors": {
     "defaultRequire": 1

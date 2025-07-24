@@ -35,4 +35,5 @@ public class HCBlocks {
                 .tab(CreativeModeTabs.FUNCTIONAL_BLOCKS)
                 .addItemsBefore(Ingredient.of(Items.CHAIN), HEART_LANTERN);
     }
+
 }

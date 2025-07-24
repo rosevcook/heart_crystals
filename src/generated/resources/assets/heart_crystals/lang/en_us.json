@@ -20,6 +20,8 @@
   "block.minecraft.banner.heart_crystals.heart.red": "Red Heart",
   "block.minecraft.banner.heart_crystals.heart.white": "White Heart",
   "block.minecraft.banner.heart_crystals.heart.yellow": "Yellow Heart",
+  "entity.heart_crystals.cupids_arrow": "Cupid's Arrow",
+  "item.heart_crystals.cupids_arrow": "Cupid's Arrow",
   "item.heart_crystals.heart_banner_pattern": "Banner Pattern",
   "item.heart_crystals.heart_banner_pattern.desc": "Heart",
   "painting.heart_crystals.heartbeat.author": "Yapetto",

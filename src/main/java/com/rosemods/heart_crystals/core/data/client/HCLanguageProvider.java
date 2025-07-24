@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import com.rosemods.heart_crystals.core.other.HCTrimMaterials;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
+import com.rosemods.heart_crystals.core.registry.HCEntityTypes;
 import com.rosemods.heart_crystals.core.registry.HCItems;
 import com.rosemods.heart_crystals.core.registry.HCPaintingVariants;
 import net.minecraft.resources.ResourceKey;
@@ -35,10 +36,14 @@ public class HCLanguageProvider extends LanguageProvider {
     protected void addTranslations() {
         // items
         this.translateBannerPattern(HCItems.HEART_BANNER_PATTERN, "heart");
+        this.add(HCItems.CUPIDS_ARROW.get(), "Cupid's Arrow");
 
         // blocks
         this.addDescription(HCBlocks.HEART_CRYSTAL, "+1 Permanent Heart (Max %s)");
         this.add(HCBlocks.HEART_CRYSTAL.get().getDescriptionId() + ".maximum", "Cannot use heart crystal; currently at maximum hearts!");
+
+        // entities
+        this.add(HCEntityTypes.CUPIDS_ARROW.get(), "Cupid's Arrow");
 
         // paintings
         this.translatePainting(HCPaintingVariants.HEARTBEAT, "Yapetto");

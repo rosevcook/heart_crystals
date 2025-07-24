@@ -29,7 +29,7 @@ public final class HCFeatures {
         }
 
         private static ResourceKey<ConfiguredFeature<?, ?>> createKey(String name) {
-            return ResourceKey.create(Registries.CONFIGURED_FEATURE, HeartCrystals.REGISTRY_HELPER.prefix(name));
+            return ResourceKey.create(Registries.CONFIGURED_FEATURE, HeartCrystals.location(name));
         }
 
     }
@@ -46,7 +46,7 @@ public final class HCFeatures {
         }
 
         private static ResourceKey<PlacedFeature> createKey(String name) {
-            return ResourceKey.create(Registries.PLACED_FEATURE, HeartCrystals.REGISTRY_HELPER.prefix(name));
+            return ResourceKey.create(Registries.PLACED_FEATURE, HeartCrystals.location(name));
         }
     }
 

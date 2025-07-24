@@ -31,7 +31,7 @@ public final class HCBiomeModifiers {
     }
 
     private static void register(BootstapContext<BiomeModifier> context, String name, Supplier<? extends BiomeModifier> modifier) {
-        context.register(ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, HeartCrystals.REGISTRY_HELPER.prefix(name)), modifier.get());
+        context.register(ResourceKey.create(ForgeRegistries.Keys.BIOME_MODIFIERS, HeartCrystals.location(name)), modifier.get());
     }
 
     @SafeVarargs

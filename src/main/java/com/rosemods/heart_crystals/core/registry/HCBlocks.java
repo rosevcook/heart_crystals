@@ -21,7 +21,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HCBlocks {
-    public static final BlockSubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getBlockSubHelper();
+    private static final BlockSubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getBlockSubHelper();
 
     public static final RegistryObject<Block> HEART_CRYSTAL = HELPER.createBlockWithItem("heart_crystal", () -> new HeartCrystalBlock(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.AMETHYST).lightLevel(s -> 5)), () -> new HeartCrystalItem(HCBlocks.HEART_CRYSTAL.get(), new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(16)));
     public static final RegistryObject<Block> HEART_CRYSTAL_SHARD = HELPER.createBlock("heart_crystal_shard", () -> new HeartCrystalShardBlock(BlockBehaviour.Properties.copy(Blocks.AMETHYST_CLUSTER).sound(SoundType.LARGE_AMETHYST_BUD).lightLevel(s -> 2)));

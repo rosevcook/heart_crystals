@@ -12,7 +12,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HCItems {
-    public static final ItemSubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getItemSubHelper();
+    private static final ItemSubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getItemSubHelper();
 
     public static final RegistryObject<Item> HEART_BANNER_PATTERN = HELPER.createItem("heart_banner_pattern", () -> new BannerPatternItem(HCBannerPatternTags.HEART, new Item.Properties().stacksTo(1)));
     public static final RegistryObject<Item> CUPIDS_ARROW = HELPER.createItem("cupids_arrow", () -> new CupidsArrowItem(new Item.Properties()));

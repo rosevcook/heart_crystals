@@ -69,7 +69,7 @@ public class HCEvents {
     @SubscribeEvent
     public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof Player && !(event.getObject() instanceof FakePlayer))
-            event.addCapability(HeartCrystals.REGISTRY_HELPER.prefix("player_info"), new HCPlayerInfo.PlayerHealthInfoProvider());
+            event.addCapability(HeartCrystals.location("player_info"), new HCPlayerInfo.PlayerHealthInfoProvider());
     }
 
     public static void setMaxHealthAttribute(int health, Player player) {

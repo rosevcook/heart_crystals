@@ -7,7 +7,7 @@ import net.minecraft.client.renderer.entity.EntityRendererProvider;
 import net.minecraft.resources.ResourceLocation;
 
 public class CupidsArrowRenderer extends ArrowRenderer<CupidsArrow> {
-    private static final ResourceLocation CUPIDS_ARROW = HeartCrystals.REGISTRY_HELPER.prefix("textures/entity/projectiles/cupids_arrow.png");
+    private static final ResourceLocation CUPIDS_ARROW = HeartCrystals.location("textures/entity/projectiles/cupids_arrow.png");
 
     public CupidsArrowRenderer(EntityRendererProvider.Context context) {
         super(context);

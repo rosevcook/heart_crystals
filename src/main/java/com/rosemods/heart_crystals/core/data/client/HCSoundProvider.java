@@ -13,7 +13,7 @@ public class HCSoundProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
-        this.add(HCSoundEvents.HEART_CRYSTAL_USE.get(), definition().with(sound(HeartCrystals.REGISTRY_HELPER.prefix("heart_crystal")).stream()));
+        this.add(HCSoundEvents.HEART_CRYSTAL_USE.get(), definition().with(sound(HeartCrystals.location("heart_crystal")).stream()));
     }
 
 }

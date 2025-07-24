@@ -9,7 +9,7 @@ public final class HCBannerPatternTags {
     public static final TagKey<BannerPattern> HEART = createTag("pattern_item/heart");
 
     private static TagKey<BannerPattern> createTag(String name) {
-        return TagKey.create(Registries.BANNER_PATTERN, HeartCrystals.REGISTRY_HELPER.prefix(name));
+        return TagKey.create(Registries.BANNER_PATTERN, HeartCrystals.location(name));
     }
 
 }

@@ -24,7 +24,7 @@ public final class HCTrimMaterials {
     }
 
     private static ResourceKey<TrimMaterial> createKey(String name) {
-        return ResourceKey.create(Registries.TRIM_MATERIAL, HeartCrystals.REGISTRY_HELPER.prefix(name));
+        return ResourceKey.create(Registries.TRIM_MATERIAL, HeartCrystals.location(name));
     }
 
     private static void register(BootstapContext<TrimMaterial> context, ResourceKey<TrimMaterial> key, Item item, Style style, Map<ArmorMaterials, String> overrides) {

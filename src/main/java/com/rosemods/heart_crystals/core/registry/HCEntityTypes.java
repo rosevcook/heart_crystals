@@ -14,7 +14,7 @@ import net.minecraftforge.registries.RegistryObject;
 
 @Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HCEntityTypes {
-    public static final EntitySubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getEntitySubHelper();
+    private static final EntitySubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getEntitySubHelper();
 
     public static final RegistryObject<EntityType<CupidsArrow>> CUPIDS_ARROW = HELPER.createEntity("cupids_arrow", CupidsArrow::new, CupidsArrow::new, MobCategory.MISC, .5f, .5f);
 

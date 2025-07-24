@@ -11,6 +11,7 @@ import com.rosemods.heart_crystals.core.registry.*;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potions;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
@@ -99,6 +100,10 @@ public class HeartCrystals {
                 HCPlayerInfo.PlayerHealthInfoSync::new,
                 (msg, ctx) -> HCClientSync.receivePacket(msg, ctx)
         );
+    }
+
+    public static ResourceLocation location(String path) {
+        return new ResourceLocation(MOD_ID, path);
     }
 
 }

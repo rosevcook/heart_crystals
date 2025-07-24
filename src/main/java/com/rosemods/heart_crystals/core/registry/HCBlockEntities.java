@@ -11,7 +11,7 @@ import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class HCBlockEntities {
-    public static final BlockEntitySubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getBlockEntitySubHelper();
+    private static final BlockEntitySubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getBlockEntitySubHelper();
 
     public static final RegistryObject<BlockEntityType<HeartLanternBlockEntity>> HEART_LANTERN = HELPER.createBlockEntity("heart_lantern", HeartLanternBlockEntity::new, () -> Set.of(HCBlocks.HEART_LANTERN.get()));
 

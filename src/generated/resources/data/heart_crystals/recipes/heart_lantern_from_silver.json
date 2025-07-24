@@ -4,8 +4,11 @@
     {
       "conditions": [
         {
-          "type": "forge:tag_empty",
-          "tag": "forge:ingots/silver"
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/silver"
+          }
         }
       ],
       "recipe": {
@@ -16,7 +19,7 @@
             "item": "heart_crystals:heart_crystal"
           },
           "I": {
-            "item": "minecraft:iron_ingot"
+            "tag": "forge:ingots/silver"
           }
         },
         "pattern": [

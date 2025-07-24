@@ -18,7 +18,7 @@
           },
           "has_the_recipe": {
             "conditions": {
-              "recipe": "heart_crystals:heart_lantern"
+              "recipe": "heart_crystals:heart_lantern_from_silver"
             },
             "trigger": "minecraft:recipe_unlocked"
           }
@@ -31,15 +31,18 @@
         ],
         "rewards": {
           "recipes": [
-            "heart_crystals:heart_lantern"
+            "heart_crystals:heart_lantern_from_silver"
           ]
         },
         "sends_telemetry_event": false
       },
       "conditions": [
         {
-          "type": "forge:tag_empty",
-          "tag": "forge:ingots/silver"
+          "type": "forge:not",
+          "value": {
+            "type": "forge:tag_empty",
+            "tag": "forge:ingots/silver"
+          }
         }
       ]
     }

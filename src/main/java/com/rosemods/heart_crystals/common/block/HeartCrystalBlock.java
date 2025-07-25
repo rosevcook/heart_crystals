@@ -28,21 +28,24 @@ import javax.annotation.Nullable;
 
 public class HeartCrystalBlock extends Block implements SimpleWaterloggedBlock {
     public static final BooleanProperty WATERLOGGED = BlockStateProperties.WATERLOGGED;
+    public static final BooleanProperty HANGING = BlockStateProperties.HANGING;
     private static final VoxelShape SHAPE = box(2f, 0f, 2f, 14f, 15f, 14f);
+    private static final VoxelShape SHAPE_HANGING = box(2f, 1f, 2f, 14f, 16f, 14f);
 
     public HeartCrystalBlock(Properties properties) {
         super(properties);
-        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false));
+        this.registerDefaultState(this.stateDefinition.any().setValue(WATERLOGGED, false).setValue(HANGING, false));
     }
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter level, BlockPos pos, CollisionContext context) {
-        return SHAPE;
+        return state.getValue(HANGING) ? SHAPE_HANGING : SHAPE;
     }
 
     @Override
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
-        return canSupportCenter(level, pos.below(), Direction.UP);
+        boolean hanging = state.getValue(HANGING);
+        return canSupportCenter(level, hanging ? pos.above() : pos.below(), hanging ? Direction.DOWN : Direction.UP);
     }
 
     @Override
@@ -56,7 +59,8 @@ public class HeartCrystalBlock extends Block implements SimpleWaterloggedBlock {
         BlockPos blockpos = context.getClickedPos();
         FluidState fluidstate = context.getLevel().getFluidState(blockpos);
 
-        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER);
+        return this.defaultBlockState().setValue(WATERLOGGED, fluidstate.getType() == Fluids.WATER)
+                .setValue(HANGING, context.getClickedFace() == Direction.DOWN);
     }
 
     @Override
@@ -66,7 +70,7 @@ public class HeartCrystalBlock extends Block implements SimpleWaterloggedBlock {
 
     @Override
     protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
-        builder.add(WATERLOGGED);
+        builder.add(WATERLOGGED, HANGING);
     }
 
     @Override

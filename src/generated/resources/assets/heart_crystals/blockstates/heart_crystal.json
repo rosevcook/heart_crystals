@@ -1,7 +1,18 @@
 {
   "variants": {
-    "": {
+    "hanging=false,waterlogged=false": {
       "model": "heart_crystals:block/heart_crystal"
+    },
+    "hanging=false,waterlogged=true": {
+      "model": "heart_crystals:block/heart_crystal"
+    },
+    "hanging=true,waterlogged=false": {
+      "model": "heart_crystals:block/heart_crystal",
+      "x": 180
+    },
+    "hanging=true,waterlogged=true": {
+      "model": "heart_crystals:block/heart_crystal",
+      "x": 180
     }
   }
 }

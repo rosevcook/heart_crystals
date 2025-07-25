@@ -26,6 +26,9 @@ public class HeartCrystalFeature extends Feature<NoneFeatureConfiguration> {
         BlockPos desination = null;
         int airAmount = 0;
 
+        if (rand.nextInt(8) == 0)
+            state = state.setValue(HeartCrystalBlock.HANGING, true);
+
         for (int x = 0; x <= 6; ++x)
             for (int z = 0; z <= 6; ++z)
                 for (int y = 0; y <= 6; ++y) {

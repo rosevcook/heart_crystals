@@ -1,9 +1,12 @@
 package com.rosemods.heart_crystals.core.data.client;
 
+import com.rosemods.heart_crystals.common.block.HeartCrystalBlock;
 import com.rosemods.heart_crystals.core.HeartCrystals;
+import net.minecraft.core.Direction;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.RegistryObject;
@@ -26,9 +29,12 @@ public class HCModelProvider extends BlockStateProvider {
         this.generatedItem(CUPIDS_ARROW);
 
         //blocks
-        this.simpleBlock(HEART_CRYSTAL.get(), this.models().cross(getItemName(HEART_CRYSTAL), this.blockTexture(HEART_CRYSTAL.get())).renderType("cutout"));
         this.directionalBlock(HEART_CRYSTAL_SHARD.get(), this.models().cross(getItemName(HEART_CRYSTAL_SHARD), this.blockTexture(HEART_CRYSTAL_SHARD.get())).renderType("cutout"));
-        this.simpleBlock(HEART_LANTERN.get(), this.models().getExistingFile(new ResourceLocation(HeartCrystals.MOD_ID, "block/heart_lantern")));
+        this.simpleBlock(HEART_LANTERN.get(), this.models().getExistingFile(this.modLoc("block/heart_lantern")));
+        this.getVariantBuilder(HEART_CRYSTAL.get()).forAllStates(state -> ConfiguredModel.builder()
+                .modelFile(this.models().cross(getItemName(HEART_CRYSTAL), this.blockTexture(HEART_CRYSTAL.get())).renderType("cutout"))
+                .rotationX(state.getValue(HeartCrystalBlock.HANGING) ? 180 : 0)
+                .build());
     }
 
     private void generatedItem(RegistryObject<? extends ItemLike> item) {

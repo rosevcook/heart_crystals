@@ -1,5 +1,6 @@
 package com.rosemods.heart_crystals.core;
 
+import com.rosemods.heart_crystals.common.dispense.CupidsArrowDispenseBehavior;
 import com.rosemods.heart_crystals.core.data.client.*;
 import com.rosemods.heart_crystals.core.data.server.HCDatapackBuiltinEntriesProvider;
 import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
@@ -13,6 +14,7 @@ import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potions;
+import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.capabilities.RegisterCapabilitiesEvent;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -58,7 +60,10 @@ public class HeartCrystals {
 
     private void commonSetup(FMLCommonSetupEvent event) {
         registerMessage();
-        DataUtil.addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
+        event.enqueueWork(() -> {
+            DataUtil.addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
+            DispenserBlock.registerBehavior(HCItems.CUPIDS_ARROW.get(), new CupidsArrowDispenseBehavior());
+        });
     }
 
     private void clientSetup(FMLClientSetupEvent event) {

@@ -1,0 +1,44 @@
+{
+  "type": "forge:conditional",
+  "recipes": [
+    {
+      "conditions": [
+        {
+          "type": "forge:mod_loaded",
+          "modid": "caverns_and_chasms"
+        }
+      ],
+      "recipe": {
+  	"type": "minecraft:crafting_shapeless",
+        "category": "misc",
+  	"ingredients": [
+          {
+            "item": "minecraft:rotten_flesh"
+          },
+          {
+            "item": "minecraft:rotten_flesh"
+          },
+          {
+            "item": "minecraft:rotten_flesh"
+          },
+          {
+            "tag": "forge:ingots/silver"
+          },
+          {
+            "tag": "forge:ingots/silver"
+          },
+          {
+            "item": "heart_crystals:heart_crystal_shard"
+          },
+          {
+            "item": "heart_crystals:heart_crystal_shard"
+          }
+  	],
+        "result": {
+          "count": 2,
+          "item": "caverns_and_chasms:living_flesh"
+        }
+      }
+    }
+  ]
+}

@@ -1,17 +1,17 @@
 package com.rosemods.heart_crystals.core.data.server.tags;
 
 import com.rosemods.heart_crystals.core.HeartCrystals;
-import com.rosemods.heart_crystals.core.data.server.HCDatapackBuiltinEntriesProvider;
+import com.rosemods.heart_crystals.core.data.server.HCDatapackProvider;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
 import com.rosemods.heart_crystals.core.registry.HCItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.tags.ItemTags;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 public class HCItemTagProvider extends ItemTagsProvider {
-    public HCItemTagProvider(GatherDataEvent event, HCBlockTagProvider blockTags, HCDatapackBuiltinEntriesProvider dataPack) {
+    public HCItemTagProvider(GatherDataEvent event, HCBlockTagProvider blockTags, HCDatapackProvider dataPack) {
         super(event.getGenerator().getPackOutput(), dataPack.getRegistryProvider(), blockTags.contentsGetter(), HeartCrystals.MOD_ID, event.getExistingFileHelper());
     }
 

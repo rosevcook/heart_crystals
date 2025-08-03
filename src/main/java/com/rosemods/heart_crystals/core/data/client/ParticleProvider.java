@@ -1,7 +1,6 @@
 package com.rosemods.heart_crystals.core.data.client;
 
 import com.google.gson.JsonElement;
-import com.mojang.logging.LogUtils;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.JsonOps;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -9,9 +8,7 @@ import net.minecraft.core.particles.ParticleType;
 import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.slf4j.Logger;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.nio.file.Path;
 import java.util.Arrays;
@@ -21,7 +18,6 @@ import java.util.Map;
 import java.util.concurrent.CompletableFuture;
 
 public abstract class ParticleProvider implements DataProvider {
-    private static final Logger LOGGER = LogUtils.getLogger();
     private final PackOutput packOutput;
     private final String modid;
     private final Map<String, ParticleDefinition> particles = new LinkedHashMap<>();
@@ -33,9 +29,8 @@ public abstract class ParticleProvider implements DataProvider {
 
     protected abstract void addParticles();
 
-    protected void add(ParticleType<?> particle, String... textures) {
-        this.particles.put(ForgeRegistries.PARTICLE_TYPES.getKey(particle).getPath(),
-                new ParticleDefinition(Arrays.stream(textures).map(s -> new ResourceLocation(this.modid, s).toString()).toList()));
+    protected void add(DeferredHolder<ParticleType<?>, ?> particle, String... textures) {
+        this.particles.put(particle.getId().getPath(), new ParticleDefinition(Arrays.stream(textures).map(s -> this.modid + ':' + s).toList()));
     }
 
     @Override
@@ -62,7 +57,7 @@ public abstract class ParticleProvider implements DataProvider {
         private static final Codec<ParticleDefinition> CODEC = RecordCodecBuilder.create(textures -> textures.group(Codec.STRING.listOf().fieldOf("textures").forGetter(ParticleDefinition::entries)).apply(textures, ParticleDefinition::new));
 
         public JsonElement serialize() {
-            return CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow(false, LOGGER::error);
+            return CODEC.encodeStart(JsonOps.INSTANCE, this).getOrThrow();
         }
     }
 

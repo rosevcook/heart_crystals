@@ -1,0 +1,39 @@
+modLoader = "javafml"
+loaderVersion = "[1,)"
+issueTrackerURL = "https://github.com/rosevcook/heart_crystals/issues"
+license = "All Rights Reserved"
+
+[[mixins]]
+    config = "heart_crystals.mixins.json"
+
+[[mods]]
+    modId = "heart_crystals"
+    version = "${mod_version}"
+    displayName = "Heart Crystals"
+    logoFile = "logo.png"
+    itemIcon = "heart_crystals:heart_crystal"
+    displayURL = "https://www.curseforge.com/minecraft/mc-mods/heart-crystals"
+    authors = "Rose"
+    description = '''Find Heart Crystals underground to permanently increase your health!'''
+
+[[dependencies.heart_crystals]]
+    modId = "minecraft"
+    type = "required"
+    versionRange = "[${mc_version}]"
+    ordering = "AFTER"
+    side = "BOTH"
+
+[[dependencies.heart_crystals]]
+    modId = "neoforge"
+    type = "required"
+    versionRange = "[${neoforge},)"
+    ordering = "AFTER"
+    side = "BOTH"
+
+[[dependencies.heart_crystals]]
+    modId = "blueprint"
+    type = "required"
+    versionRange = "[${blueprint},)"
+    ordering = "AFTER"
+    side = "BOTH"
+

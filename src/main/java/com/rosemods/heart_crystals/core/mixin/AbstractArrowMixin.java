@@ -14,8 +14,10 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 
 @Mixin(AbstractArrow.class)
 public class AbstractArrowMixin {
+    /*
     @Shadow
     private int knockback;
+
 
     @Redirect(method = "onHitEntity", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/entity/Entity;hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z"))
 
@@ -38,5 +40,5 @@ public class AbstractArrowMixin {
 
         return instance.hurt(source, i);
     }
-
+*/
 }

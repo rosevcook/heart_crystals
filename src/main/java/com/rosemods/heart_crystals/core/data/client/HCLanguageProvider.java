@@ -2,11 +2,13 @@ package com.rosemods.heart_crystals.core.data.client;
 
 import com.google.common.collect.Lists;
 import com.rosemods.heart_crystals.core.HeartCrystals;
-import com.rosemods.heart_crystals.core.other.HCTrimMaterials;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
 import com.rosemods.heart_crystals.core.registry.HCEntityTypes;
 import com.rosemods.heart_crystals.core.registry.HCItems;
-import com.rosemods.heart_crystals.core.registry.HCPaintingVariants;
+import com.rosemods.heart_crystals.core.registry.datapack.HCPaintingVariants;
+import com.rosemods.heart_crystals.core.registry.datapack.HCTrimMaterials;
+import net.minecraft.core.Registry;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.entity.decoration.PaintingVariant;
 import net.minecraft.world.item.DyeColor;
@@ -14,11 +16,9 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.armortrim.TrimMaterial;
 import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.IForgeRegistry;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 import org.codehaus.plexus.util.StringUtils;
 
 import java.util.List;
@@ -52,12 +52,12 @@ public class HCLanguageProvider extends LanguageProvider {
         this.translateTrimMaterial(HCTrimMaterials.HEART_CRYSTAL_SHARD, "Heart Crystal Material");
 
         // auto translation
-        this.translateRegistry(ForgeRegistries.BLOCKS, Block::getDescriptionId);
+        this.translateRegistry(Registries.BLOCK, Block::getDescriptionId);
     }
 
-    private <T> void translateRegistry(IForgeRegistry<T> registry, Function<T, String> toString) {
-        for (RegistryObject<T> object : HeartCrystals.REGISTRY_HELPER.getSubHelper(registry).getDeferredRegister().getEntries())
-            this.add(toString.apply(object.get()), toUpper(registry, object));
+    private <T> void translateRegistry(ResourceKey<Registry<T>> registry, Function<T, String> toString) {
+        for (DeferredHolder<?, ?> object : HeartCrystals.REGISTRY_HELPER.getSubHelper(registry).getDeferredRegister().getEntries())
+            this.add(toString.apply((T) object.get()), toUpper(object));
     }
 
     private void translateTrimMaterial(ResourceKey<TrimMaterial> material, String name) {
@@ -72,13 +72,13 @@ public class HCLanguageProvider extends LanguageProvider {
         }
     }
 
-    private void translatePainting(RegistryObject<PaintingVariant> painting, String author) {
-        String name = ForgeRegistries.PAINTING_VARIANTS.getKey(painting.get()).getPath();
+    private void translatePainting(ResourceKey<PaintingVariant> painting, String author) {
+        String name = painting.location().getPath();
         this.add("painting." + HeartCrystals.MOD_ID + "." + name + ".title", toUpper(name));
         this.add("painting." + HeartCrystals.MOD_ID + "." + name + ".author", author);
     }
 
-    private void translateBannerPattern(RegistryObject<? extends Item> item, String name) {
+    private void translateBannerPattern(DeferredHolder<? extends Item, ? extends Item> item, String name) {
         String desc = toUpper(name);
         this.add(item.get(), "Banner Pattern");
         this.addDescription(item, desc);
@@ -87,12 +87,12 @@ public class HCLanguageProvider extends LanguageProvider {
             this.add("block.minecraft.banner." + HeartCrystals.MOD_ID + "." + name + "." + dye.getName(), toUpper(dye.getName()) + " " + desc);
     }
 
-    private void addDescription(RegistryObject<? extends ItemLike> item, String desc) {
+    private void addDescription(DeferredHolder<? extends ItemLike, ? extends ItemLike> item, String desc) {
         this.add(item.get().asItem().getDescriptionId() + ".desc", desc);
     }
 
-    private static <T> String toUpper(IForgeRegistry<T> registry, RegistryObject<? extends T> object) {
-        return toUpper(registry.getKey(object.get()).getPath());
+    private static <T> String toUpper(DeferredHolder<?, ?> object) {
+        return toUpper(object.getId().getPath());
     }
 
     private static String toUpper(String string) {

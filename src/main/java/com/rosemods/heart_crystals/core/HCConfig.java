@@ -1,21 +1,19 @@
 package com.rosemods.heart_crystals.core;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
 
-@Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID)
-public class HCConfig {
+public final class HCConfig {
     public static final Common COMMON;
-    public static final ForgeConfigSpec COMMON_SPEC;
+    public static final ModConfigSpec COMMON_SPEC;
 
     public static class Common {
-        public final ForgeConfigSpec.ConfigValue<Integer> minimum;
-        public final ForgeConfigSpec.ConfigValue<Integer> maximum;
-        public final ForgeConfigSpec.ConfigValue<Integer> regenRange;
-        public final ForgeConfigSpec.ConfigValue<Integer> maxYLevel;
+        public final ModConfigSpec.ConfigValue<Integer> minimum;
+        public final ModConfigSpec.ConfigValue<Integer> maximum;
+        public final ModConfigSpec.ConfigValue<Integer> regenRange;
+        public final ModConfigSpec.ConfigValue<Integer> maxYLevel;
 
-        private Common(ForgeConfigSpec.Builder builder) {
+        private Common(ModConfigSpec.Builder builder) {
             builder.comment("Heart Crystals Content Tweaks").push("content");
             this.minimum = builder.comment("Minimum heart value that you start the game with; default: 5").defineInRange("Minimum Hearts", 5, 1, 1000);
             this.maximum = builder.comment("Maximum amount of hearts you can have; default: 20").defineInRange("Maximum Hearts", 20, 1, 1000);
@@ -29,9 +27,10 @@ public class HCConfig {
     }
 
     static {
-        final Pair<Common, ForgeConfigSpec> commonSpecPair = new ForgeConfigSpec.Builder().configure(Common::new);
+        final Pair<Common, ModConfigSpec> commonSpecPair = new ModConfigSpec.Builder().configure(Common::new);
 
         COMMON = commonSpecPair.getLeft();
         COMMON_SPEC = commonSpecPair.getRight();
     }
+
 }

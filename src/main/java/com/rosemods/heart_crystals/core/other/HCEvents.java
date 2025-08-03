@@ -2,17 +2,14 @@ package com.rosemods.heart_crystals.core.other;
 
 import com.rosemods.heart_crystals.core.HCConfig;
 import com.rosemods.heart_crystals.core.HeartCrystals;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.common.util.FakePlayer;
-import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.EventBusSubscriber;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
-@Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID)
+@EventBusSubscriber(modid = HeartCrystals.MOD_ID)
 public class HCEvents {
 
     @SubscribeEvent
@@ -66,11 +63,11 @@ public class HCEvents {
         clone.healthSet = original.healthSet;
     }
 
-    @SubscribeEvent
-    public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-        if (event.getObject() instanceof Player && !(event.getObject() instanceof FakePlayer))
-            event.addCapability(HeartCrystals.location("player_info"), new HCPlayerInfo.PlayerHealthInfoProvider());
-    }
+    //@SubscribeEvent
+    //public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
+    //    if (event.getObject() instanceof Player && !(event.getObject() instanceof FakePlayer))
+    //        event.addCapability(HeartCrystals.location("player_info"), new HCPlayerInfo.PlayerHealthInfoProvider());
+    //}
 
     public static void setMaxHealthAttribute(int health, Player player) {
         if (!player.level().isClientSide() && player.getServer() != null) {
@@ -86,5 +83,4 @@ public class HCEvents {
         if (player != null && !player.level().isClientSide())
             HCPlayerInfo.getPlayerHealthInfo(player).syncHealthInfo(player);
     }
-
 }

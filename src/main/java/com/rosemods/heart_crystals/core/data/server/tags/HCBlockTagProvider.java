@@ -4,8 +4,8 @@ import com.rosemods.heart_crystals.core.HeartCrystals;
 import com.rosemods.heart_crystals.core.registry.HCBlocks;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.tags.BlockTags;
-import net.minecraftforge.common.data.BlockTagsProvider;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.common.data.BlockTagsProvider;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 public class HCBlockTagProvider extends BlockTagsProvider {
     public HCBlockTagProvider(GatherDataEvent event) {

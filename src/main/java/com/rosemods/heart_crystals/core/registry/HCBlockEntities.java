@@ -4,15 +4,13 @@ import com.rosemods.heart_crystals.common.block_entity.HeartLanternBlockEntity;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import com.teamabnormals.blueprint.core.util.registry.BlockEntitySubRegistryHelper;
 import net.minecraft.world.level.block.entity.BlockEntityType;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import java.util.Set;
 
-@Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class HCBlockEntities {
-    private static final BlockEntitySubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getBlockEntitySubHelper();
+public final class HCBlockEntities {
+    public static final BlockEntitySubRegistryHelper BLOCK_ENTITIES = HeartCrystals.REGISTRY_HELPER.getBlockEntitySubHelper();
 
-    public static final RegistryObject<BlockEntityType<HeartLanternBlockEntity>> HEART_LANTERN = HELPER.createBlockEntity("heart_lantern", HeartLanternBlockEntity::new, () -> Set.of(HCBlocks.HEART_LANTERN.get()));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<HeartLanternBlockEntity>> HEART_LANTERN = BLOCK_ENTITIES.createBlockEntity("heart_lantern", HeartLanternBlockEntity::new, () -> Set.of(HCBlocks.HEART_LANTERN.get()));
 
 }

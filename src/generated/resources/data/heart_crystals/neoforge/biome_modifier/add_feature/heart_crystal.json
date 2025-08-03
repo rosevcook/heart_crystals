@@ -1,0 +1,6 @@
+{
+  "type": "neoforge:add_features",
+  "biomes": "#minecraft:is_overworld",
+  "features": "heart_crystals:heart_crystal",
+  "step": "underground_ores"
+}

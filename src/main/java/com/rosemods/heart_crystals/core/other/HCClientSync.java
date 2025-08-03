@@ -2,12 +2,9 @@ package com.rosemods.heart_crystals.core.other;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.player.Player;
-import net.minecraftforge.network.NetworkEvent;
-
-import java.util.function.Supplier;
 
 public final class HCClientSync {
-
+/*
     public static void receivePacket(HCPlayerInfo.PlayerHealthInfoSync sync, Supplier<NetworkEvent.Context> contextSupplier) {
         NetworkEvent.Context context = contextSupplier.get();
 
@@ -25,5 +22,5 @@ public final class HCClientSync {
 
         context.setPacketHandled(true);
     }
-
+*/
 }

@@ -3,12 +3,11 @@ package com.rosemods.heart_crystals.core.registry;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import com.teamabnormals.blueprint.core.util.registry.SoundSubRegistryHelper;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
-@Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class HCSoundEvents {
-    private static final SoundSubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getSoundSubHelper();
+public final class HCSoundEvents {
+    public static final SoundSubRegistryHelper SOUNDS = HeartCrystals.REGISTRY_HELPER.getSoundSubHelper();
 
-    public static final RegistryObject<SoundEvent> HEART_CRYSTAL_USE = HELPER.createSoundEvent("block.heart_crystal.use");
+    public static final DeferredHolder<SoundEvent, SoundEvent> HEART_CRYSTAL_USE = SOUNDS.createSoundEvent("block.heart_crystal.use");
+
 }

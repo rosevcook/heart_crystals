@@ -10,7 +10,6 @@ import net.minecraft.world.entity.projectile.AbstractArrow;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.minecraftforge.network.PlayMessages;
 
 public class CupidsArrow extends AbstractArrow {
 
@@ -18,16 +17,16 @@ public class CupidsArrow extends AbstractArrow {
         super(type, level);
     }
 
-    public CupidsArrow(Level level, double x, double y, double z) {
-        super(HCEntityTypes.CUPIDS_ARROW.get(), x, y, z, level);
+    public CupidsArrow(Level level) {
+        super(HCEntityTypes.CUPIDS_ARROW.get(), level);
     }
 
-    public CupidsArrow(PlayMessages.SpawnEntity spawnEntity, Level world) {
-        this(HCEntityTypes.CUPIDS_ARROW.get(), world);
+    public CupidsArrow(Level level, LivingEntity owner, ItemStack pickupItemStack, ItemStack firedFromWeapon) {
+        super(HCEntityTypes.CUPIDS_ARROW.get(), owner, level, pickupItemStack, firedFromWeapon);
     }
 
-    public CupidsArrow(Level worldIn, LivingEntity shooter) {
-        super(HCEntityTypes.CUPIDS_ARROW.get(), shooter, worldIn);
+    public CupidsArrow(Level level, double x, double y, double z, ItemStack pickupItemStack, ItemStack firedFromWeapon) {
+        super(HCEntityTypes.CUPIDS_ARROW.get(), x, y, z, level, pickupItemStack, firedFromWeapon);
     }
 
     @Override
@@ -62,7 +61,7 @@ public class CupidsArrow extends AbstractArrow {
     }
 
     @Override
-    protected ItemStack getPickupItem() {
+    protected ItemStack getDefaultPickupItem() {
         return HCItems.CUPIDS_ARROW.get().getDefaultInstance();
     }
 

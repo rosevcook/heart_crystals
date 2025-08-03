@@ -8,19 +8,17 @@ import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.CapabilityToken;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.LazyOptional;
-import net.minecraftforge.network.PacketDistributor;
+import net.neoforged.neoforge.capabilities.EntityCapability;
+import net.neoforged.neoforge.network.PacketDistributor;
 
 public class HCPlayerInfo {
-    public static final Capability<PlayerHealthInfo> HEALTH_INFO_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() {
-    });
+
+    //public static final Capability<PlayerHealthInfo> HEALTH_INFO_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() { });
+    public static final EntityCapability<PlayerHealthInfo, ?> HEALTH_INFO_CAPABILITY = EntityCapability.createVoid(HeartCrystals.location("health_info"), PlayerHealthInfo.class);
 
     public static PlayerHealthInfo getPlayerHealthInfo(Entity entity) {
-        return entity.getCapability(HCPlayerInfo.HEALTH_INFO_CAPABILITY, null).orElse(new PlayerHealthInfo());
+        PlayerHealthInfo result = entity.getCapability(HEALTH_INFO_CAPABILITY, null);
+        return result != null ? result : new PlayerHealthInfo();
     }
 
     public static class PlayerHealthInfo {
@@ -33,8 +31,8 @@ public class HCPlayerInfo {
         }
 
         public void syncHealthInfo(Entity entity) {
-            if (entity instanceof ServerPlayer serverPlayer)
-                HeartCrystals.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new PlayerHealthInfoSync(this));
+            //if (entity instanceof ServerPlayer serverPlayer)
+            //    HeartCrystals.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new PlayerHealthInfoSync(this));
         }
 
         public Tag writeNBT() {
@@ -70,11 +68,11 @@ public class HCPlayerInfo {
         }
 
         public static void buffer(PlayerHealthInfoSync message, FriendlyByteBuf buffer) {
-            buffer.writeNbt((CompoundTag) message.getHealthInfo().writeNBT());
+            buffer.writeNbt(message.getHealthInfo().writeNBT());
         }
 
     }
-
+/*
     public static class PlayerHealthInfoProvider implements ICapabilitySerializable<Tag> {
         private final PlayerHealthInfo info = new PlayerHealthInfo();
         private final LazyOptional<PlayerHealthInfo> instance = LazyOptional.of(() -> this.info);
@@ -95,5 +93,5 @@ public class HCPlayerInfo {
         }
 
     }
-
+*/
 }

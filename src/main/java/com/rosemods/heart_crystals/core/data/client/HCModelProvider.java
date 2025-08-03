@@ -2,14 +2,11 @@ package com.rosemods.heart_crystals.core.data.client;
 
 import com.rosemods.heart_crystals.common.block.HeartCrystalBlock;
 import com.rosemods.heart_crystals.core.HeartCrystals;
-import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.ItemLike;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 import static com.rosemods.heart_crystals.core.registry.HCBlocks.*;
 import static com.rosemods.heart_crystals.core.registry.HCItems.*;
@@ -37,13 +34,13 @@ public class HCModelProvider extends BlockStateProvider {
                 .build());
     }
 
-    private void generatedItem(RegistryObject<? extends ItemLike> item) {
+    private void generatedItem(DeferredHolder<? extends ItemLike, ? extends ItemLike> item) {
         String name = getItemName(item);
         this.itemModels().withExistingParent(name, "item/generated").texture("layer0", this.modLoc("item/" + name));
     }
 
-    private static String getItemName(RegistryObject<? extends ItemLike> item) {
-        return ForgeRegistries.ITEMS.getKey(item.get().asItem()).getPath();
+    private static String getItemName(DeferredHolder<? extends ItemLike, ? extends ItemLike> item) {
+        return item.getId().getPath();
     }
 
 }

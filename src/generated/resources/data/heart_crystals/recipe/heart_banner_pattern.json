@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    {
+      "item": "minecraft:paper"
+    },
+    {
+      "item": "heart_crystals:heart_crystal_shard"
+    }
+  ],
+  "result": {
+    "count": 1,
+    "id": "heart_crystals:heart_banner_pattern"
+  }
+}

@@ -2,7 +2,7 @@ package com.rosemods.heart_crystals.core.data.client;
 
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import com.rosemods.heart_crystals.core.registry.HCParticleTypes;
-import net.minecraftforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 public class HCParticleProvider extends ParticleProvider {
 
@@ -12,7 +12,7 @@ public class HCParticleProvider extends ParticleProvider {
 
     @Override
     protected void addParticles() {
-        this.add(HCParticleTypes.CUPIDS_ARROW.get(), "cupids_arrow");
+        this.add(HCParticleTypes.CUPIDS_ARROW, "cupids_arrow");
     }
 
 }

@@ -11,6 +11,7 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
@@ -45,8 +46,8 @@ public class HeartCrystalItem extends BlockItem {
     }
 
     @Override
-    public void appendHoverText(ItemStack stack, Level level, List<Component> tooltip, TooltipFlag tooltipFlag) {
-        tooltip.add(Component.translatable(this.getDescriptionId() + ".desc", HCConfig.COMMON.maximum.get() + "").withStyle(ChatFormatting.DARK_PURPLE));
+    public void appendHoverText(ItemStack stack, Item.TooltipContext context, List<Component> tooltipComponents, TooltipFlag tooltipFlag) {
+        tooltipComponents.add(Component.translatable(this.getDescriptionId() + ".desc", HCConfig.COMMON.maximum.get() + "").withStyle(ChatFormatting.DARK_PURPLE));
     }
 
 }

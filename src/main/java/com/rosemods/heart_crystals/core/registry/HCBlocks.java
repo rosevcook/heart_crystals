@@ -16,16 +16,14 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredBlock;
 
-@Mod.EventBusSubscriber(modid = HeartCrystals.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
-public class HCBlocks {
-    private static final BlockSubRegistryHelper HELPER = HeartCrystals.REGISTRY_HELPER.getBlockSubHelper();
+public final class HCBlocks {
+    public static final BlockSubRegistryHelper BLOCKS = HeartCrystals.REGISTRY_HELPER.getBlockSubHelper();
 
-    public static final RegistryObject<Block> HEART_CRYSTAL = HELPER.createBlockWithItem("heart_crystal", () -> new HeartCrystalBlock(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.AMETHYST).lightLevel(s -> 5)), () -> new HeartCrystalItem(HCBlocks.HEART_CRYSTAL.get(), new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(16)));
-    public static final RegistryObject<Block> HEART_CRYSTAL_SHARD = HELPER.createBlock("heart_crystal_shard", () -> new HeartCrystalShardBlock(BlockBehaviour.Properties.copy(Blocks.AMETHYST_CLUSTER).sound(SoundType.LARGE_AMETHYST_BUD).lightLevel(s -> 2)));
-    public static final RegistryObject<Block> HEART_LANTERN = HELPER.createBlock("heart_lantern", () -> new HeartLanternBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.LANTERN).lightLevel(s -> 8)), new Item.Properties().rarity(Rarity.UNCOMMON));
+    public static final DeferredBlock<Block> HEART_CRYSTAL = BLOCKS.createBlockWithItem("heart_crystal", () -> new HeartCrystalBlock(BlockBehaviour.Properties.of().strength(2f).sound(SoundType.AMETHYST).lightLevel(s -> 5)), () -> new HeartCrystalItem(HCBlocks.HEART_CRYSTAL.get(), new Item.Properties().rarity(Rarity.UNCOMMON).stacksTo(16)));
+    public static final DeferredBlock<Block> HEART_CRYSTAL_SHARD = BLOCKS.createBlock("heart_crystal_shard", () -> new HeartCrystalShardBlock(BlockBehaviour.Properties.ofFullCopy(Blocks.AMETHYST_CLUSTER).sound(SoundType.LARGE_AMETHYST_BUD).lightLevel(s -> 2)));
+    public static final DeferredBlock<Block> HEART_LANTERN = BLOCKS.createBlock("heart_lantern", () -> new HeartLanternBlock(BlockBehaviour.Properties.of().requiresCorrectToolForDrops().strength(3.5f).sound(SoundType.LANTERN).lightLevel(s -> 8)), new Item.Properties().rarity(Rarity.UNCOMMON));
 
     public static void setupTabEditors() {
         CreativeModeTabContentsPopulator.mod(HeartCrystals.MOD_ID)

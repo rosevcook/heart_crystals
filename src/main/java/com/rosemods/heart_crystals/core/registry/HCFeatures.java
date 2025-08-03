@@ -3,28 +3,27 @@ package com.rosemods.heart_crystals.core.registry;
 import com.rosemods.heart_crystals.common.level.gen.feature.HeartCrystalFeature;
 import com.rosemods.heart_crystals.core.HeartCrystals;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.data.worldgen.BootstapContext;
+import net.minecraft.data.worldgen.BootstrapContext;
 import net.minecraft.data.worldgen.placement.PlacementUtils;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.level.levelgen.feature.ConfiguredFeature;
 import net.minecraft.world.level.levelgen.feature.Feature;
 import net.minecraft.world.level.levelgen.feature.configurations.NoneFeatureConfiguration;
 import net.minecraft.world.level.levelgen.placement.*;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.List;
 
 public final class HCFeatures {
-    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(ForgeRegistries.FEATURES, HeartCrystals.MOD_ID);
+    public static final DeferredRegister<Feature<?>> FEATURES = DeferredRegister.create(Registries.FEATURE, HeartCrystals.MOD_ID);
 
-    public static final RegistryObject<Feature<NoneFeatureConfiguration>> HEART_CRYSTAL_FEATURE = FEATURES.register("heart_crystal", HeartCrystalFeature::new);
+    public static final DeferredHolder<Feature<?>, Feature<NoneFeatureConfiguration>> HEART_CRYSTAL_FEATURE = FEATURES.register("heart_crystal", HeartCrystalFeature::new);
 
     public static final class Features {
         public static final ResourceKey<ConfiguredFeature<?, ?>> HEART_CRYSTAL = createKey("heart_crystal");
 
-        public static void bootstrap(BootstapContext<ConfiguredFeature<?, ?>> context) {
+        public static void bootstrap(BootstrapContext<ConfiguredFeature<?, ?>> context) {
             context.register(HEART_CRYSTAL, new ConfiguredFeature<>(HEART_CRYSTAL_FEATURE.get(), NoneFeatureConfiguration.NONE));
         }
 
@@ -37,17 +36,18 @@ public final class HCFeatures {
     public static final class Placements {
         public static final ResourceKey<PlacedFeature> HEART_CRYSTAL = createKey("heart_crystal");
 
-        public static void bootstrap(BootstapContext<PlacedFeature> context) {
+        public static void bootstrap(BootstrapContext<PlacedFeature> context) {
             register(context, HEART_CRYSTAL, Features.HEART_CRYSTAL, CountPlacement.of(3), InSquarePlacement.spread(), PlacementUtils.RANGE_BOTTOM_TO_MAX_TERRAIN_HEIGHT, BiomeFilter.biome());
         }
 
-        private static void register(BootstapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> feature, PlacementModifier... modifiers) {
+        private static void register(BootstrapContext<PlacedFeature> context, ResourceKey<PlacedFeature> key, ResourceKey<ConfiguredFeature<?, ?>> feature, PlacementModifier... modifiers) {
             context.register(key, new PlacedFeature(context.lookup(Registries.CONFIGURED_FEATURE).getOrThrow(feature), List.of(modifiers)));
         }
 
         private static ResourceKey<PlacedFeature> createKey(String name) {
             return ResourceKey.create(Registries.PLACED_FEATURE, HeartCrystals.location(name));
         }
+
     }
 
 }

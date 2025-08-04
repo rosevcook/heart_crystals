@@ -50,6 +50,14 @@ dependencies {
 
     compileOnly("mezz.jei:jei-${project.mc_version}-neoforge-api:${project.jei}")
     runtimeOnly("mezz.jei:jei-${project.mc_version}-neoforge:${project.jei}")
+
+    def galena_hats_version = "${mc_version}-${galena_hats}"
+    implementation(jarJar("dev.galena:hats-neoforge:$galena_hats_version") {
+        version {
+            strictly("[${galena_hats_version},)")
+            prefer(galena_hats_version)
+        }
+    })
 }
 
 subsystems {
@@ -60,9 +68,10 @@ subsystems {
 }
 
 repositories {
-    maven { url "https://maven.teamabnormals.com/" }
+    maven { url = "https://maven.teamabnormals.com/" }
     maven { url = "https://maven.blamejared.com/" }
     maven { url = "https://modmaven.dev" }
+    maven { url = "https://registry.somethingcatchy.net/repository/maven-public/" }
 }
 
 tasks.withType(ProcessResources).configureEach {
@@ -73,7 +82,9 @@ tasks.withType(ProcessResources).configureEach {
     }
 }
 
-tasks.named("jar", Jar).configure {
+tasks.jar {
+    archiveClassifier = "slim"
+
     manifest {
         attributes([
                 "Specification-Title"     : project.mod_name,
@@ -85,6 +96,10 @@ tasks.named("jar", Jar).configure {
                 "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }
+}
+
+tasks.jarJar {
+    archiveClassifier = ""
 }
 
 idea {

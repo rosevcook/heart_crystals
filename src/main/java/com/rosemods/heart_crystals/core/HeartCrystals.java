@@ -6,6 +6,8 @@ import com.rosemods.heart_crystals.core.data.server.HCDatapackProvider;
 import com.rosemods.heart_crystals.core.data.server.HCLootTableProvider;
 import com.rosemods.heart_crystals.core.data.server.HCRecipeProvider;
 import com.rosemods.heart_crystals.core.data.server.tags.*;
+import com.rosemods.heart_crystals.core.other.HCClientSync;
+import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
 import com.rosemods.heart_crystals.core.registry.*;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
@@ -22,12 +24,12 @@ import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.network.event.RegisterPayloadHandlersEvent;
 
 @Mod(HeartCrystals.MOD_ID)
 public class HeartCrystals {
     public static final String MOD_ID = "heart_crystals";
     public static final RegistryHelper REGISTRY_HELPER = new RegistryHelper(MOD_ID);
-    //public static final SimpleChannel PACKET_HANDLER = NetworkRegistry.newSimpleChannel(location(MOD_ID), () -> "1", "1"::equals, "1"::equals);
 
     public HeartCrystals(IEventBus bus, ModContainer container) {
         HCBlocks.BLOCKS.register(bus);
@@ -42,6 +44,7 @@ public class HeartCrystals {
         bus.addListener(this::clientSetup);
         bus.addListener(this::registerCapabilities);
         bus.addListener(this::dataSetup);
+        bus.addListener(this::registerMessage);
 
         if (FMLEnvironment.dist == Dist.CLIENT) {
             HCBlocks.setupTabEditors();
@@ -53,7 +56,6 @@ public class HeartCrystals {
     }
 
     private void commonSetup(FMLCommonSetupEvent event) {
-        registerMessage();
         event.enqueueWork(() -> {
             //DataUtil.addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
             DispenserBlock.registerProjectileBehavior(HCItems.CUPIDS_ARROW);
@@ -94,15 +96,13 @@ public class HeartCrystals {
         gen.addProvider(client, new HCParticleProvider(event));
     }
 
-    private static void registerMessage() {
-        /*
-        PACKET_HANDLER.registerMessage(0,
-                HCPlayerInfo.PlayerHealthInfoSync.class,
-                HCPlayerInfo.PlayerHealthInfoSync::buffer,
-                HCPlayerInfo.PlayerHealthInfoSync::new,
-                (msg, ctx) -> HCClientSync.receivePacket(msg, ctx)
+    private void registerMessage(RegisterPayloadHandlersEvent event) {
+        var registrar = event.registrar("1");
+        registrar.playToClient(
+                HCPlayerInfo.PlayerHealthInfoSync.TYPE.type(),
+                HCPlayerInfo.PlayerHealthInfoSync.TYPE.codec(),
+                HCClientSync::receivePacket
         );
-        */
     }
 
     public static ResourceLocation location(String path) {

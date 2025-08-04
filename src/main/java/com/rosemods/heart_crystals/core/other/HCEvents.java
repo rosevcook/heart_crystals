@@ -16,22 +16,19 @@ public class HCEvents {
     public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
         Player player = event.getEntity();
         syncPlayerInfo(player);
+        HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
+        int minimum = HCConfig.COMMON.minimum.get();
 
-        if (player != null) {
-            HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
-            int minimum = HCConfig.COMMON.minimum.get();
-
-            if (!info.healthSet) {
-                setMaxHealthAttribute(minimum * 2, player);
-                player.setHealth(minimum * 2);
-                info.healthSet = true;
-                info.syncHealthInfo(player);
-            } else if (info.heartCount < HCConfig.COMMON.minimum.get()) {
-                setMaxHealthAttribute(minimum * 2, player);
-                player.setHealth(minimum * 2);
-                info.heartCount = minimum;
-                info.syncHealthInfo(player);
-            }
+        if (!info.healthSet) {
+            setMaxHealthAttribute(minimum * 2, player);
+            player.setHealth(minimum * 2);
+            info.healthSet = true;
+            info.syncHealthInfo(player);
+        } else if (info.heartCount < HCConfig.COMMON.minimum.get()) {
+            setMaxHealthAttribute(minimum * 2, player);
+            player.setHealth(minimum * 2);
+            info.heartCount = minimum;
+            info.syncHealthInfo(player);
         }
 
     }
@@ -40,12 +37,9 @@ public class HCEvents {
     public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
         Player player = event.getEntity();
         syncPlayerInfo(event.getEntity());
-
-        if (player != null) {
-            HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
-            setMaxHealthAttribute(info.heartCount * 2, player);
-            player.setHealth(info.heartCount * 2);
-        }
+        HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
+        setMaxHealthAttribute(info.heartCount * 2, player);
+        player.setHealth(info.heartCount * 2);
     }
 
     @SubscribeEvent
@@ -63,12 +57,6 @@ public class HCEvents {
         clone.healthSet = original.healthSet;
     }
 
-    //@SubscribeEvent
-    //public static void attachCapabilities(AttachCapabilitiesEvent<Entity> event) {
-    //    if (event.getObject() instanceof Player && !(event.getObject() instanceof FakePlayer))
-    //        event.addCapability(HeartCrystals.location("player_info"), new HCPlayerInfo.PlayerHealthInfoProvider());
-    //}
-
     public static void setMaxHealthAttribute(int health, Player player) {
         if (!player.level().isClientSide() && player.getServer() != null) {
             AttributeInstance attribute = player.getAttributes().getInstance(Attributes.MAX_HEALTH);
@@ -83,4 +71,5 @@ public class HCEvents {
         if (player != null && !player.level().isClientSide())
             HCPlayerInfo.getPlayerHealthInfo(player).syncHealthInfo(player);
     }
+
 }

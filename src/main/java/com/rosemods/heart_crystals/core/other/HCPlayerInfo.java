@@ -9,20 +9,20 @@ import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.player.Player;
 import net.neoforged.neoforge.capabilities.EntityCapability;
+import net.neoforged.neoforge.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 public class HCPlayerInfo {
-
-    //public static final Capability<PlayerHealthInfo> HEALTH_INFO_CAPABILITY = CapabilityManager.get(new CapabilityToken<>() { });
-    public static final EntityCapability<PlayerHealthInfo, ?> HEALTH_INFO_CAPABILITY = EntityCapability.createVoid(HeartCrystals.location("health_info"), PlayerHealthInfo.class);
+    public static final EntityCapability<PlayerHealthInfo, Void> HEALTH_INFO_CAPABILITY = EntityCapability.createVoid(HeartCrystals.location("health_info"), PlayerHealthInfo.class);
 
     public static PlayerHealthInfo getPlayerHealthInfo(Entity entity) {
         PlayerHealthInfo result = entity.getCapability(HEALTH_INFO_CAPABILITY, null);
         return result != null ? result : new PlayerHealthInfo();
     }
 
-    public static class PlayerHealthInfo {
+    public static class PlayerHealthInfo implements ICapabilityProvider<Player, Void, PlayerHealthInfo> {
         public int heartCount;
         public boolean healthSet;
 
@@ -31,8 +31,8 @@ public class HCPlayerInfo {
             this.healthSet = false;
         }
 
-        public void syncHealthInfo(Entity entity) {
-            if (entity instanceof ServerPlayer serverPlayer)
+        public void syncHealthInfo(Player player) {
+            if (player instanceof ServerPlayer serverPlayer)
                 PacketDistributor.sendToPlayer(serverPlayer, new PlayerHealthInfoSync(this));
         }
 
@@ -50,10 +50,14 @@ public class HCPlayerInfo {
             this.healthSet = nbt.getBoolean("PlayerBaseHealthSet");
         }
 
+        @Override
+        public PlayerHealthInfo getCapability(Player player, Void context) {
+            return this;
+        }
+
     }
 
     public static class PlayerHealthInfoSync implements CustomPacketPayload {
-
         public static final TypeAndCodec<FriendlyByteBuf, PlayerHealthInfoSync> TYPE = new TypeAndCodec<>(
                 new Type<>(HeartCrystals.location("health_info_sync")),
                 StreamCodec.of(
@@ -85,27 +89,7 @@ public class HCPlayerInfo {
         public Type<? extends CustomPacketPayload> type() {
             return TYPE.type();
         }
-    }
-/*
-    public static class PlayerHealthInfoProvider implements ICapabilitySerializable<Tag> {
-        private final PlayerHealthInfo info = new PlayerHealthInfo();
-        private final LazyOptional<PlayerHealthInfo> instance = LazyOptional.of(() -> this.info);
-
-        @Override
-        public <T> LazyOptional<T> getCapability(Capability<T> cap, Direction side) {
-            return cap == HCPlayerInfo.HEALTH_INFO_CAPABILITY ? this.instance.cast() : LazyOptional.empty();
-        }
-
-        @Override
-        public Tag serializeNBT() {
-            return this.info.writeNBT();
-        }
-
-        @Override
-        public void deserializeNBT(Tag nbt) {
-            this.info.readNBT(nbt);
-        }
 
     }
-*/
+
 }

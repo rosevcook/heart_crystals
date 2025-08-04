@@ -12,6 +12,7 @@ import com.rosemods.heart_crystals.core.registry.*;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -67,7 +68,7 @@ public class HeartCrystals {
     }
 
     private void registerCapabilities(RegisterCapabilitiesEvent event) {
-        //event.register(HCPlayerInfo.PlayerHealthInfo.class);
+        event.registerEntity(HCPlayerInfo.HEALTH_INFO_CAPABILITY, EntityType.PLAYER, new HCPlayerInfo.PlayerHealthInfo());
     }
 
     private void registerSpriteSets(RegisterParticleProvidersEvent event) {
@@ -97,8 +98,7 @@ public class HeartCrystals {
     }
 
     private void registerMessage(RegisterPayloadHandlersEvent event) {
-        var registrar = event.registrar("1");
-        registrar.playToClient(
+        event.registrar("1").playToClient(
                 HCPlayerInfo.PlayerHealthInfoSync.TYPE.type(),
                 HCPlayerInfo.PlayerHealthInfoSync.TYPE.codec(),
                 HCClientSync::receivePacket

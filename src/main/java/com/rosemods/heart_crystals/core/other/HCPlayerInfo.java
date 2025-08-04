@@ -2,10 +2,11 @@ package com.rosemods.heart_crystals.core.other;
 
 import com.rosemods.heart_crystals.core.HCConfig;
 import com.rosemods.heart_crystals.core.HeartCrystals;
-import net.minecraft.core.Direction;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.StreamCodec;
+import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.neoforged.neoforge.capabilities.EntityCapability;
@@ -31,8 +32,8 @@ public class HCPlayerInfo {
         }
 
         public void syncHealthInfo(Entity entity) {
-            //if (entity instanceof ServerPlayer serverPlayer)
-            //    HeartCrystals.PACKET_HANDLER.send(PacketDistributor.PLAYER.with(() -> serverPlayer), new PlayerHealthInfoSync(this));
+            if (entity instanceof ServerPlayer serverPlayer)
+                PacketDistributor.sendToPlayer(serverPlayer, new PlayerHealthInfoSync(this));
         }
 
         public Tag writeNBT() {
@@ -51,14 +52,23 @@ public class HCPlayerInfo {
 
     }
 
-    public static class PlayerHealthInfoSync {
+    public static class PlayerHealthInfoSync implements CustomPacketPayload {
+
+        public static final TypeAndCodec<FriendlyByteBuf, PlayerHealthInfoSync> TYPE = new TypeAndCodec<>(
+                new Type<>(HeartCrystals.location("health_info_sync")),
+                StreamCodec.of(
+                        PlayerHealthInfoSync::encode,
+                        PlayerHealthInfoSync::new
+                )
+        );
+
         private final PlayerHealthInfo info;
 
         public PlayerHealthInfoSync(PlayerHealthInfo info) {
             this.info = info;
         }
 
-        public PlayerHealthInfoSync(FriendlyByteBuf buffer) {
+        private PlayerHealthInfoSync(FriendlyByteBuf buffer) {
             this.info = new PlayerHealthInfo();
             this.info.readNBT(buffer.readNbt());
         }
@@ -67,10 +77,14 @@ public class HCPlayerInfo {
             return this.info;
         }
 
-        public static void buffer(PlayerHealthInfoSync message, FriendlyByteBuf buffer) {
+        public static void encode(FriendlyByteBuf buffer, PlayerHealthInfoSync message) {
             buffer.writeNbt(message.getHealthInfo().writeNBT());
         }
 
+        @Override
+        public Type<? extends CustomPacketPayload> type() {
+            return TYPE.type();
+        }
     }
 /*
     public static class PlayerHealthInfoProvider implements ICapabilitySerializable<Tag> {

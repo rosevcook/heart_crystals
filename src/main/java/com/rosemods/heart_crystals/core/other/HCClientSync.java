@@ -1,14 +1,13 @@
 package com.rosemods.heart_crystals.core.other;
 
+import com.rosemods.heart_crystals.core.registry.HCAttachments;
 import net.neoforged.neoforge.network.handling.IPayloadContext;
 
 public final class HCClientSync {
 
     public static void receivePacket(HCPlayerInfo.PlayerHealthInfoSync sync, IPayloadContext context) {
         context.enqueueWork(() -> {
-            HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(context.player());
-            info.heartCount = sync.getHealthInfo().heartCount;
-            info.healthSet = sync.getHealthInfo().healthSet;
+            context.player().setData(HCAttachments.HEALTH_INFO, sync.info());
         });
     }
 

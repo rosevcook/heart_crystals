@@ -1,53 +1,65 @@
 package com.rosemods.heart_crystals.core.other;
 
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import com.rosemods.heart_crystals.core.HCConfig;
 import com.rosemods.heart_crystals.core.HeartCrystals;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
+import com.rosemods.heart_crystals.core.registry.HCAttachments;
 import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.capabilities.EntityCapability;
 import net.neoforged.neoforge.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.network.PacketDistributor;
 
+import java.util.function.UnaryOperator;
+
 public class HCPlayerInfo {
-    public static final EntityCapability<PlayerHealthInfo, Void> HEALTH_INFO_CAPABILITY = EntityCapability.createVoid(HeartCrystals.location("health_info"), PlayerHealthInfo.class);
 
     public static PlayerHealthInfo getPlayerHealthInfo(Entity entity) {
-        PlayerHealthInfo result = entity.getCapability(HEALTH_INFO_CAPABILITY, null);
-        return result != null ? result : new PlayerHealthInfo();
+        return entity.getData(HCAttachments.HEALTH_INFO);
     }
 
-    public static class PlayerHealthInfo implements ICapabilityProvider<Player, Void, PlayerHealthInfo> {
-        public int heartCount;
-        public boolean healthSet;
+    private static PlayerHealthInfo modifyPlayerHealthInfo(Player entity, UnaryOperator<PlayerHealthInfo> modifier) {
+        var modified = modifier.apply(getPlayerHealthInfo(entity));
+        entity.setData(HCAttachments.HEALTH_INFO, modified);
+        modified.syncHealthInfo(entity);
+        return modified;
+    }
+
+    public static HCPlayerInfo.PlayerHealthInfo setHeartSet(Player player, boolean set) {
+        return HCPlayerInfo.modifyPlayerHealthInfo(player, it -> new HCPlayerInfo.PlayerHealthInfo(it.heartCount(), set));
+    }
+
+    public static HCPlayerInfo.PlayerHealthInfo setHeartCount(Player player, int count) {
+        return HCPlayerInfo.modifyPlayerHealthInfo(player, it -> new HCPlayerInfo.PlayerHealthInfo(count, it.healthSet()));
+    }
+
+    public record PlayerHealthInfo(int heartCount, boolean healthSet) implements ICapabilityProvider<Player, Void, PlayerHealthInfo> {
+
+        public static final Codec<PlayerHealthInfo> CODEC = RecordCodecBuilder.create(builder ->
+                builder.group(
+                        Codec.INT.fieldOf("count").forGetter(PlayerHealthInfo::heartCount),
+                        Codec.BOOL.fieldOf("set").forGetter(PlayerHealthInfo::healthSet)
+                ).apply(builder, PlayerHealthInfo::new)
+        );
+
+        public static final StreamCodec<FriendlyByteBuf, PlayerHealthInfo> STREAM_CODEC = StreamCodec.composite(
+                ByteBufCodecs.INT, PlayerHealthInfo::heartCount,
+                ByteBufCodecs.BOOL, PlayerHealthInfo::healthSet,
+                PlayerHealthInfo::new
+        );
 
         public PlayerHealthInfo() {
-            this.heartCount = HCConfig.COMMON.minimum.get();
-            this.healthSet = false;
+            this(HCConfig.COMMON.minimum.get(), false);
         }
 
         public void syncHealthInfo(Player player) {
             if (player instanceof ServerPlayer serverPlayer)
                 PacketDistributor.sendToPlayer(serverPlayer, new PlayerHealthInfoSync(this));
-        }
-
-        public Tag writeNBT() {
-            CompoundTag nbt = new CompoundTag();
-            nbt.putInt("PlayerHeartsCount", this.heartCount);
-            nbt.putBoolean("PlayerBaseHealthSet", this.healthSet);
-
-            return nbt;
-        }
-
-        public void readNBT(Tag Tag) {
-            CompoundTag nbt = (CompoundTag) Tag;
-            this.heartCount = nbt.getInt("PlayerHeartsCount");
-            this.healthSet = nbt.getBoolean("PlayerBaseHealthSet");
         }
 
         @Override
@@ -57,33 +69,11 @@ public class HCPlayerInfo {
 
     }
 
-    public static class PlayerHealthInfoSync implements CustomPacketPayload {
+    public record PlayerHealthInfoSync(PlayerHealthInfo info) implements CustomPacketPayload {
         public static final TypeAndCodec<FriendlyByteBuf, PlayerHealthInfoSync> TYPE = new TypeAndCodec<>(
                 new Type<>(HeartCrystals.location("health_info_sync")),
-                StreamCodec.of(
-                        PlayerHealthInfoSync::encode,
-                        PlayerHealthInfoSync::new
-                )
+                PlayerHealthInfo.STREAM_CODEC.map(PlayerHealthInfoSync::new, PlayerHealthInfoSync::info)
         );
-
-        private final PlayerHealthInfo info;
-
-        public PlayerHealthInfoSync(PlayerHealthInfo info) {
-            this.info = info;
-        }
-
-        private PlayerHealthInfoSync(FriendlyByteBuf buffer) {
-            this.info = new PlayerHealthInfo();
-            this.info.readNBT(buffer.readNbt());
-        }
-
-        public PlayerHealthInfo getHealthInfo() {
-            return this.info;
-        }
-
-        public static void encode(FriendlyByteBuf buffer, PlayerHealthInfoSync message) {
-            buffer.writeNbt(message.getHealthInfo().writeNBT());
-        }
 
         @Override
         public Type<? extends CustomPacketPayload> type() {

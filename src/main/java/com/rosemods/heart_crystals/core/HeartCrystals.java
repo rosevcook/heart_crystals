@@ -40,10 +40,10 @@ public class HeartCrystals {
         HCSoundEvents.SOUNDS.register(bus);
         HCFeatures.FEATURES.register(bus);
         HCParticleTypes.PARTICLE_TYPES.register(bus);
+        HCAttachments.ATTACHMENT_TYPES.register(bus);
 
         bus.addListener(this::commonSetup);
         bus.addListener(this::clientSetup);
-        bus.addListener(this::registerCapabilities);
         bus.addListener(this::dataSetup);
         bus.addListener(this::registerMessage);
 
@@ -65,10 +65,6 @@ public class HeartCrystals {
 
     private void clientSetup(FMLClientSetupEvent event) {
         event.enqueueWork(HCEntityTypes::registerClient);
-    }
-
-    private void registerCapabilities(RegisterCapabilitiesEvent event) {
-        event.registerEntity(HCPlayerInfo.HEALTH_INFO_CAPABILITY, EntityType.PLAYER, new HCPlayerInfo.PlayerHealthInfo());
     }
 
     private void registerSpriteSets(RegisterParticleProvidersEvent event) {

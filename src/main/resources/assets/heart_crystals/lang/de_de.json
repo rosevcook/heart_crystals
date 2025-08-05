@@ -21,5 +21,10 @@
   "block.minecraft.banner.heart_crystals.heart.white": "Weißes Herz",
   "block.minecraft.banner.heart_crystals.heart.yellow": "Gelbes Herz",
   "item.heart_crystals.heart_banner_pattern": "Bannervorlage",
-  "item.heart_crystals.heart_banner_pattern.desc": "Herz"
+  "item.heart_crystals.heart_banner_pattern.desc": "Herz",
+  "entity.heart_crystals.cupids_arrow": "Amors Pfeil",
+  "item.heart_crystals.cupids_arrow": "Amors Pfeil",
+  "painting.heart_crystals.heartbeat.author": "Yapetto",
+  "painting.heart_crystals.heartbeat.title": "Herzschlag",
+  "trim_material.heart_crystals.heart_crystal_shard": "Herzkristall"
 }

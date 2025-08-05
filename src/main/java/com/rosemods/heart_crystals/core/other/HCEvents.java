@@ -19,16 +19,14 @@ public class HCEvents {
         HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
         int minimum = HCConfig.COMMON.minimum.get();
 
-        if (!info.healthSet) {
+        if (!info.healthSet()) {
             setMaxHealthAttribute(minimum * 2, player);
             player.setHealth(minimum * 2);
-            info.healthSet = true;
-            info.syncHealthInfo(player);
-        } else if (info.heartCount < HCConfig.COMMON.minimum.get()) {
+            HCPlayerInfo.setHeartSet(player, true);
+        } else if (info.heartCount() < HCConfig.COMMON.minimum.get()) {
             setMaxHealthAttribute(minimum * 2, player);
             player.setHealth(minimum * 2);
-            info.heartCount = minimum;
-            info.syncHealthInfo(player);
+            HCPlayerInfo.setHeartCount(player, minimum);
         }
 
     }
@@ -38,23 +36,13 @@ public class HCEvents {
         Player player = event.getEntity();
         syncPlayerInfo(event.getEntity());
         HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
-        setMaxHealthAttribute(info.heartCount * 2, player);
-        player.setHealth(info.heartCount * 2);
+        setMaxHealthAttribute(info.heartCount() * 2, player);
+        player.setHealth(info.heartCount() * 2);
     }
 
     @SubscribeEvent
     public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
         syncPlayerInfo(event.getEntity());
-    }
-
-    @SubscribeEvent
-    public static void onPlayerClone(PlayerEvent.Clone event) {
-        event.getOriginal().revive();
-        HCPlayerInfo.PlayerHealthInfo original = HCPlayerInfo.getPlayerHealthInfo(event.getOriginal());
-        HCPlayerInfo.PlayerHealthInfo clone = HCPlayerInfo.getPlayerHealthInfo(event.getEntity());
-
-        clone.heartCount = original.heartCount;
-        clone.healthSet = original.healthSet;
     }
 
     public static void setMaxHealthAttribute(int health, Player player) {

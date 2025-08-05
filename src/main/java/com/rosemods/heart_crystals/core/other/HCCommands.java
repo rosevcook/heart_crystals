@@ -21,11 +21,10 @@ public class HCCommands {
             Entity entity = context.getSource().getEntity();
 
             if (entity instanceof Player player) {
-                HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
-                info.heartCount = HCConfig.COMMON.minimum.get();
-                info.syncHealthInfo(player);
-                HCEvents.setMaxHealthAttribute(info.heartCount * 2, player);
-                player.setHealth(info.heartCount * 2);
+                int minimum = HCConfig.COMMON.minimum.get();
+                HCPlayerInfo.setHeartCount(player, minimum);
+                HCEvents.setMaxHealthAttribute(minimum * 2, player);
+                player.setHealth(minimum * 2);
 
                 return 1;
             } else {

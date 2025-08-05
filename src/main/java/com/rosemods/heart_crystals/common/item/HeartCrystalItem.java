@@ -30,20 +30,21 @@ public class HeartCrystalItem extends BlockItem {
         HCPlayerInfo.PlayerHealthInfo info = HCPlayerInfo.getPlayerHealthInfo(player);
         ItemStack stack = player.getItemInHand(hand);
 
-        if (info.heartCount < HCConfig.COMMON.maximum.get()) {
-            //player.sendSystemMessage(Component.literal("hearts: " + info.heartCount + " -> " + (info.heartCount + 1)));
-            info.heartCount++;
-            info.syncHealthInfo(player);
-            HCEvents.setMaxHealthAttribute(info.heartCount * 2, player);
-
-            player.heal(2f);
-            level.playSound(player, player.blockPosition(), HCSoundEvents.HEART_CRYSTAL_USE.get(), SoundSource.PLAYERS, .65f, 1f + ((level.random.nextFloat() - .5f) / 8f));
-
+        if (info.heartCount() < HCConfig.COMMON.maximum.get()) {
             player.getCooldowns().addCooldown(this, 24);
-            player.awardStat(Stats.ITEM_USED.get(this));
             stack.consume(1, player);
 
-            return InteractionResultHolder.consume(stack);
+            if (!level.isClientSide()) {
+                var modified = HCPlayerInfo.setHeartCount(player, info.heartCount() + 1);
+                HCEvents.setMaxHealthAttribute(modified.heartCount() * 2, player);
+
+                player.heal(2f);
+                level.playSound(player, player.blockPosition(), HCSoundEvents.HEART_CRYSTAL_USE.get(), SoundSource.PLAYERS, .65f, 1f + ((level.random.nextFloat() - .5f) / 8f));
+
+                player.awardStat(Stats.ITEM_USED.get(this));
+            }
+
+            return InteractionResultHolder.sidedSuccess(stack, level.isClientSide());
         } else {
             player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".maximum"), true);
             return InteractionResultHolder.fail(stack);

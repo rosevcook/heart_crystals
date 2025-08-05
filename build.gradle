@@ -83,6 +83,14 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge-api:${project.jei}")
     runtimeOnly fg.deobf("mezz.jei:jei-${project.minecraft}-forge:${project.jei}")
 
+    def galena_hats_version = "${minecraft}-${galena_hats}"
+    implementation(fg.deobf(jarJar("dev.galena:hats-forge:${galena_hats_version}") {
+        version {
+            strictly("[${galena_hats_version},)")
+            prefer(galena_hats_version)
+        }
+    }))
+
     annotationProcessor "org.spongepowered:mixin:0.8.5:processor"
 }
 
@@ -90,9 +98,12 @@ repositories {
     maven { url "https://maven.teamabnormals.com/" }
     maven { url "https://dvs1.progwml6.com/files/maven/" }
     maven { url "https://modmaven.k-4u.nl" }
+    maven { url "https://registry.somethingcatchy.net/repository/maven-public/" }
 }
 
-jar {
+tasks.jar {
+    archiveClassifier = "slim"
+
     manifest {
         attributes([
                 "Specification-Title"     : project.modName,
@@ -105,4 +116,8 @@ jar {
                 "MixinConfigs"            : project.modId + ".mixins.json"
         ])
     }
+}
+
+tasks.jarJar {
+    archiveClassifier = ""
 }

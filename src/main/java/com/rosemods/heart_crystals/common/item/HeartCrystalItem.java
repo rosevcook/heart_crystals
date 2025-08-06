@@ -33,14 +33,13 @@ public class HeartCrystalItem extends BlockItem {
         if (info.heartCount() < HCConfig.COMMON.maximum.get()) {
             player.getCooldowns().addCooldown(this, 24);
             stack.consume(1, player);
+            level.playSound(player, player.blockPosition(), HCSoundEvents.HEART_CRYSTAL_USE.get(), SoundSource.PLAYERS, .65f, 1f + ((level.random.nextFloat() - .5f) / 8f));
 
             if (!level.isClientSide()) {
                 var modified = HCPlayerInfo.setHeartCount(player, info.heartCount() + 1);
                 HCEvents.setMaxHealthAttribute(modified.heartCount() * 2, player);
 
                 player.heal(2f);
-                level.playSound(player, player.blockPosition(), HCSoundEvents.HEART_CRYSTAL_USE.get(), SoundSource.PLAYERS, .65f, 1f + ((level.random.nextFloat() - .5f) / 8f));
-
                 player.awardStat(Stats.ITEM_USED.get(this));
             }
 

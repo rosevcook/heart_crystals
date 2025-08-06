@@ -12,7 +12,6 @@ import net.minecraft.network.protocol.common.custom.CustomPacketPayload;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
-import net.neoforged.neoforge.capabilities.ICapabilityProvider;
 import net.neoforged.neoforge.network.PacketDistributor;
 
 import java.util.function.UnaryOperator;
@@ -38,8 +37,7 @@ public class HCPlayerInfo {
         return HCPlayerInfo.modifyPlayerHealthInfo(player, it -> new HCPlayerInfo.PlayerHealthInfo(count, it.healthSet()));
     }
 
-    public record PlayerHealthInfo(int heartCount, boolean healthSet) implements ICapabilityProvider<Player, Void, PlayerHealthInfo> {
-
+    public record PlayerHealthInfo(int heartCount, boolean healthSet) {
         public static final Codec<PlayerHealthInfo> CODEC = RecordCodecBuilder.create(builder ->
                 builder.group(
                         Codec.INT.fieldOf("count").forGetter(PlayerHealthInfo::heartCount),
@@ -62,10 +60,6 @@ public class HCPlayerInfo {
                 PacketDistributor.sendToPlayer(serverPlayer, new PlayerHealthInfoSync(this));
         }
 
-        @Override
-        public PlayerHealthInfo getCapability(Player player, Void context) {
-            return this;
-        }
 
     }
 

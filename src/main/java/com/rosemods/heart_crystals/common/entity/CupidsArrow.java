@@ -17,10 +17,6 @@ public class CupidsArrow extends AbstractArrow {
         super(type, level);
     }
 
-    public CupidsArrow(Level level) {
-        super(HCEntityTypes.CUPIDS_ARROW.get(), level);
-    }
-
     public CupidsArrow(Level level, LivingEntity owner, ItemStack pickupItemStack, ItemStack firedFromWeapon) {
         super(HCEntityTypes.CUPIDS_ARROW.get(), owner, level, pickupItemStack, firedFromWeapon);
     }

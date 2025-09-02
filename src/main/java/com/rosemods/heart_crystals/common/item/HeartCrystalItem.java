@@ -7,6 +7,7 @@ import com.rosemods.heart_crystals.core.registry.HCSoundEvents;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.stats.Stats;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
@@ -34,14 +35,15 @@ public class HeartCrystalItem extends BlockItem {
             HCEvents.setMaxHealthAttribute(info.heartCount * 2, player);
             stack.shrink(1);
             player.heal(2f);
+            player.awardStat(Stats.ITEM_USED.get(this));
             player.getCooldowns().addCooldown(this, 24);
             level.playSound(player, player.blockPosition(), HCSoundEvents.HEART_CRYSTAL_USE.get(), SoundSource.PLAYERS, .65f, 1f + ((level.random.nextFloat() - .5f) / 8f));
 
             return InteractionResultHolder.success(stack);
-        } else
+        } else {
             player.displayClientMessage(Component.translatable(this.getDescriptionId() + ".maximum"), true);
-
-        return InteractionResultHolder.fail(stack);
+            return InteractionResultHolder.fail(stack);
+        }
     }
 
     @Override

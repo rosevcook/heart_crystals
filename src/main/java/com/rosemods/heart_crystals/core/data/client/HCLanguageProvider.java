@@ -46,7 +46,7 @@ public class HCLanguageProvider extends LanguageProvider {
         this.add(HCEntityTypes.CUPIDS_ARROW.get(), "Cupid's Arrow");
 
         // paintings
-        this.translatePainting(HCPaintingVariants.HEARTBEAT, "Yapetto");
+        this.translatePainting(HCPaintingVariants.HEARTBEAT, "Yapettoshen");
 
         // trim materials
         this.translateTrimMaterial(HCTrimMaterials.HEART_CRYSTAL_SHARD, "Heart Crystal Material");

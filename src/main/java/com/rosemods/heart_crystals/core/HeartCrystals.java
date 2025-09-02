@@ -11,6 +11,7 @@ import com.rosemods.heart_crystals.core.other.HCPlayerInfo;
 import com.rosemods.heart_crystals.core.registry.*;
 import com.teamabnormals.blueprint.core.util.DataUtil;
 import com.teamabnormals.blueprint.core.util.registry.RegistryHelper;
+import com.teamabnormals.gallery.core.data.client.GalleryAssetsRemolderProvider;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.alchemy.Potions;
@@ -84,6 +85,7 @@ public class HeartCrystals {
         gen.addProvider(client, new HCSoundProvider(event));
         gen.addProvider(client, new HCSpriteSourceProvider(event));
         gen.addProvider(client, new HCParticleProvider(event));
+        gen.addProvider(client, new GalleryAssetsRemolderProvider(MOD_ID, event.getGenerator().getPackOutput(), event.getLookupProvider()));
 
         gen.addProvider(server, new HCLootTableProvider(event));
         gen.addProvider(server, new HCRecipeProvider(event));

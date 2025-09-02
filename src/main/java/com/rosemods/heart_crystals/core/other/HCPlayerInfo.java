@@ -60,7 +60,6 @@ public class HCPlayerInfo {
                 PacketDistributor.sendToPlayer(serverPlayer, new PlayerHealthInfoSync(this));
         }
 
-
     }
 
     public record PlayerHealthInfoSync(PlayerHealthInfo info) implements CustomPacketPayload {

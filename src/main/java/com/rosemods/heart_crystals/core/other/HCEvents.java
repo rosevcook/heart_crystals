@@ -17,7 +17,7 @@ public class HCEvents {
 
     @SubscribeEvent
     public static void onRegisterBrewing(RegisterBrewingRecipesEvent event) {
-        event.getBuilder().addMix(Potions.AWKWARD, HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
+        event.getBuilder().addStartMix(HCBlocks.HEART_CRYSTAL_SHARD.get().asItem(), Potions.REGENERATION);
     }
 
     @SubscribeEvent

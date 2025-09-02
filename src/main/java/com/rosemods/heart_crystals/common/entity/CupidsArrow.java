@@ -49,10 +49,10 @@ public class CupidsArrow extends AbstractArrow {
     protected void doPostHurtEffects(LivingEntity living) {
         if (this.level().isClientSide)
             for (int i = 0; i < 6; ++i) {
-                double d0 = this.level().random.nextGaussian() * 0.02D;
-                double d1 = this.level().random.nextGaussian() * 0.02D;
-                double d2 = this.level().random.nextGaussian() * 0.02D;
-                this.level().addParticle(ParticleTypes.HEART, living.getRandomX(1.0D), living.getRandomY() + 0.5D, living.getRandomZ(1.0D), d0, d1, d2);
+                double d0 = this.level().random.nextGaussian() * .02d;
+                double d1 = this.level().random.nextGaussian() * .02d;
+                double d2 = this.level().random.nextGaussian() * .02d;
+                this.level().addParticle(ParticleTypes.HEART, living.getRandomX(1d), living.getRandomY() + .5d, living.getRandomZ(1d), d0, d1, d2);
             }
     }
 

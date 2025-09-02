@@ -66,6 +66,14 @@ public class HeartCrystals {
         event.registerSpriteSet(HCParticleTypes.CUPIDS_ARROW.get(), CupidsArrowParticle.Provider::new);
     }
 
+    private void registerMessage(RegisterPayloadHandlersEvent event) {
+        event.registrar("1").playToClient(
+                HCPlayerInfo.PlayerHealthInfoSync.TYPE.type(),
+                HCPlayerInfo.PlayerHealthInfoSync.TYPE.codec(),
+                HCClientSync::receivePacket
+        );
+    }
+
     private void dataSetup(GatherDataEvent event) {
         DataGenerator gen = event.getGenerator();
         boolean server = event.includeServer();
@@ -86,14 +94,6 @@ public class HeartCrystals {
         gen.addProvider(client, new HCSoundProvider(event));
         gen.addProvider(client, new HCSpriteSourceProvider(event, dataPack));
         gen.addProvider(client, new HCParticleProvider(event));
-    }
-
-    private void registerMessage(RegisterPayloadHandlersEvent event) {
-        event.registrar("1").playToClient(
-                HCPlayerInfo.PlayerHealthInfoSync.TYPE.type(),
-                HCPlayerInfo.PlayerHealthInfoSync.TYPE.codec(),
-                HCClientSync::receivePacket
-        );
     }
 
     public static ResourceLocation location(String path) {

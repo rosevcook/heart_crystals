@@ -3,7 +3,6 @@
   "package": "com.rosemods.heart_crystals.core.mixin",
   "compatibilityLevel": "JAVA_21",
   "minVersion": "0.8",
-  "refmap": "heart_crystals.refmap.json",
   "mixins": [
     "AbstractArrowMixin"
   ],

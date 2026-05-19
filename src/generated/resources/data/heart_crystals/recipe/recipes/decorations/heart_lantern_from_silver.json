@@ -4,7 +4,7 @@
       "type": "neoforge:not",
       "value": {
         "type": "neoforge:tag_empty",
-        "tag": "forge:ingots/silver"
+        "tag": "c:ingots/silver"
       }
     }
   ],
@@ -15,7 +15,7 @@
       "item": "heart_crystals:heart_crystal"
     },
     "I": {
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   },
   "pattern": [

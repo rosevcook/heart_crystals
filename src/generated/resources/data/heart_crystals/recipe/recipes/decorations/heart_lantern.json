@@ -2,7 +2,7 @@
   "neoforge:conditions": [
     {
       "type": "neoforge:tag_empty",
-      "tag": "forge:ingots/silver"
+      "tag": "c:ingots/silver"
     }
   ],
   "type": "minecraft:crafting_shaped",
